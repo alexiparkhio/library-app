@@ -7,6 +7,7 @@ const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const router = require('./routes');
 
 /* The connection to the database will be required even before the express server can start at all. 
 This will ensure that no access to the API can be stablished if the database is not running beforehand.*/
@@ -36,5 +37,16 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
         api.use(cors());
         api.use(morgan('combined', { stream: accessLogStream }));
 
+        // Re-path to all endpoints using express.Router
+        api.use('/api', router);
+
+        // Log if the server has been successfully initiated
         api.listen(PORT, () => logger.info(`Server running and listening to port ${PORT}`));
+
+        // Log if the server is abruptly disconnected
+        process.on('SIGINT', () => {
+            logger.info('Server abruptly stopped')
+
+            process.exit(0)
+        })
     })

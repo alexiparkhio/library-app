@@ -1,10 +1,14 @@
 {
   "name": "hexad-library-server",
   "version": "1.0.0",
-  "description": "Main API of the application. Built with Express.js and connected to a MongoDB database in order to treat the data. The API is RESTful and tested with Mocha/Chai. It also features some additional scripts that will fasten some demo purposes.",
+  "description": "Main API of the application. Built with Express.js and connected to a MongoDB database in order to treat the data. The API is RESTful and tested with Mocha/Chai. It also features some additional scripts that will fasten some demo purposes. All endpoint routes can be found at ./routes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx mocha logic",
+    "test:debug": "npx mocha debug logic",
+    "start": "node index.js",
+    "start:debug": "node debug index.js",
+    "watch": "npx nodemon index.js"
   },
   "keywords": [],
   "author": "",
