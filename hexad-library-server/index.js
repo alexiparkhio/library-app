@@ -41,7 +41,7 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
         api.use('/api', router);
 
         // Log if the server has been successfully initiated
-        api.listen(PORT, HOST, () => logger.info(`Server running and listening at http://${HOST}:${PORT}`));
+        api.listen(PORT, HOST, () => logger.info(`Server running and listening at http://${HOST}:${PORT}/api`));
 
         // Log if the server is abruptly disconnected
         process.on('SIGINT', () => {

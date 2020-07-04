@@ -12,13 +12,7 @@ const admin = new Schema({
     authenticated: { type: Date },
 
     // Library-related fields
-    addedBooks: {
-        type: [{
-            bookId: { type: ObjectId, ref: 'Book' },
-            stock: { type: Number }
-
-        }]
-    },
+    addedBooks: [{ type: ObjectId, ref: 'Book' }],
     requests: {
         type: [{
             memberId: { type: ObjectId, ref: 'Member' },
