@@ -18,7 +18,7 @@ describe('registerUser', () => {
         await Promise.all([Admin.deleteMany(), Member.deleteMany(), Book.deleteMany()]);
     });
 
-    beforeEach(() => {
+    beforeEach(async () => {
         email = `email-${random()}@gmail.com`;
         password = `password-${random()}`;
         role = 'ADMIN';

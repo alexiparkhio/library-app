@@ -144,13 +144,15 @@ describe('registerUser', () => {
 
             password = undefined;
             expect(() => registerUser(email, password, role)).to.throw(TypeError, `password ${password} is not a string`);
+
             password = false;
             expect(() => registerUser(email, password, role)).to.throw(TypeError, `password ${password} is not a string`);
+
             password = [1, 2, 3];
             expect(() => registerUser(email, password, role)).to.throw(TypeError, `password ${password} is not a string`);
         });
 
-        it('should fail on a non-string email', () => {
+        it('should fail on a non-string role', () => {
             password = `password-${random()}`;
 
             role = random();
@@ -158,8 +160,10 @@ describe('registerUser', () => {
 
             role = undefined;
             expect(() => registerUser(email, password, role)).to.throw(TypeError, `role ${role} is not a string`);
+
             role = false;
             expect(() => registerUser(email, password, role)).to.throw(TypeError, `role ${role} is not a string`);
+            
             role = [1, 2, 3];
             expect(() => registerUser(email, password, role)).to.throw(TypeError, `role ${role} is not a string`);
         });
