@@ -25,7 +25,7 @@ describe('registerUser', () => {
         encryptedPassword = await bcrypt.hash(password, 10);
 
         const admin = await Admin.create({ email, password: encryptedPassword, role, created: new Date() });
-        userId = admin.id.toString();
+        adminId = admin.id.toString();
 
         title = `title-${random()}`;
         description = `description-${random()}`;

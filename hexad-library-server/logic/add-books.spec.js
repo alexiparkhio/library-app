@@ -5,7 +5,7 @@ const { floor, random } = Math;
 const { mongoose, models: { Admin, Member, Book } } = require('hexad-library-data');
 const addBooks = require('./add-books');
 const bcrypt = require('bcryptjs');
-const { NotFoundError } = require('hexad-library-commons/errors');
+const { NotFoundError, NotAllowedError } = require('hexad-library-commons/errors');
 
 describe('addBooks', () => {
     // User-oriented variables
@@ -83,6 +83,21 @@ describe('addBooks', () => {
             expect(book.added).to.be.instanceof(Date);
             expect(book.stock).to.equal(stock + extraStock);
         });
+
+        it('should fail to add the book if a book with a certain idNumber exists but the title does not match with the one provided', async () => {
+            await addBooks(adminId, { title, idNumber, description, author, yearOfPublication }, stock);
+            let _error;
+
+            try {
+                await addBooks(adminId, { title: `${title}-wrong`, idNumber, description, author, yearOfPublication }, stock);
+            } catch (error) {
+                _error = error;
+            }
+
+            expect(_error).to.exist;
+            expect(_error).to.be.instanceof(NotAllowedError);
+            expect(_error.message).to.equal(`book with title ${title}-wrong has a different idNumber`)
+        })
 
         it('should fail to add books if the admin trying to add them does not exist', async () => {
             await Admin.deleteMany();
