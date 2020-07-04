@@ -9,4 +9,5 @@ module.exports = {
     retrieveBooks: require('./retrieve-books'),
     updateBook: require('./update-book'),
     requestBook: require('./request-book'),
+    removeBook: require('./remove-book'),
 }
