@@ -16,7 +16,7 @@ const admin = new Schema({
     requests: {
         type: [{
             memberId: { type: ObjectId, ref: 'Member' },
-            bookId: { type: ObjectId, ref: 'Book' }
+            bookId: { type: String }
         }]
     },
     rentedBooks: {

@@ -59,6 +59,7 @@ describe('addBooks', () => {
             expect(book.yearOfPublication).to.equal(yearOfPublication);
             expect(book.added).to.be.instanceof(Date);
             expect(book.stock).to.equal(stock);
+            expect(book.status).to.equal('available');
         });
 
         it('should succeed on updating the books stock if the book was added on the database beforehand', async () => {
@@ -82,6 +83,7 @@ describe('addBooks', () => {
             expect(book.yearOfPublication).to.equal(yearOfPublication);
             expect(book.added).to.be.instanceof(Date);
             expect(book.stock).to.equal(stock + extraStock);
+            expect(book.status).to.equal('available');
         });
 
         it('should fail to add the book if a book with a certain idNumber exists but the title does not match with the one provided', async () => {
