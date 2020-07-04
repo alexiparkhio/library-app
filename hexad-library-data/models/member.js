@@ -14,7 +14,7 @@ const member = new Schema({
     // Library-related fields
 
     // Max: 2 books to borrow
-    requestedBooks: [{ type: ObjectId, ref: 'Book' }],
+    requestedBooks: [{ type: String }],
     borrowedBooks: {
         type: [{
             bookId: { type: ObjectId, ref: 'Book' },

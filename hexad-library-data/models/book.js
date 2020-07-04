@@ -12,8 +12,9 @@ const book = new Schema({
     author: { type: String },
     yearOfPublication: { type: Number },
 
-    // Info about the stock, in case new unities are added later on
+    // Info about the stock and availability, in case new unities are added later on
     stock: { type: Number, required: true },
+    status: { type: String, enum: ['available', 'unavailable'], default: 'available' }
 });
 
 module.exports = mongoose.model('Book', book);

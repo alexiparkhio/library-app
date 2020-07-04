@@ -7,4 +7,5 @@ module.exports = {
     // Book-oriented functions
     addBooks: require('./add-books'),
     retrieveBooks: require('./retrieve-books'),
+    updateBook: require('./update-book'),
 }
