@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
  * @param {string} password User's unique password
  * @param {string} role ADMIN or MEMBER
  * 
- * @returns {Promise<undefined>} An empty Promise on a successful registration
+ * @returns {Promise<void>} An empty Promise on a successful registration
  * 
  * @throws {NotAllowedError} if a user with the same email is already on the database
  * 
