@@ -8,6 +8,7 @@ const {
     retrieveBooks,
     updateBook,
     requestBook,
+    removeBook,
 } = require('./handlers');
 const { json: bodyParser } = require('body-parser');
 const { jwtVerifier } = require('../mid-wares');
@@ -24,7 +25,8 @@ router.get('/users/:role', jwtVerifier, retrieveUser);
 // Book-oriented endpoints
 router.post('/add-book', [bodyParser(), jwtVerifier], addBooks);
 router.get('/books', retrieveBooks);
-router.patch('/book/:idNumber', [bodyParser(), jwtVerifier], updateBook);
+router.patch('/book/:ISBN', [bodyParser(), jwtVerifier], updateBook);
 router.post('/request', [bodyParser(), jwtVerifier], requestBook);
+router.delete('/book/:ISBN', jwtVerifier, removeBook);
 
 module.exports = router;

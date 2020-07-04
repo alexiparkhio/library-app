@@ -50,6 +50,7 @@ describe('updateBook', () => {
 
         const book = await Book.create({ title, author, description, ISBN, yearOfPublication, stock, status: 'available', added: new Date() });
         bookId = book.id.toString();
+        await Admin.findByIdAndUpdate(adminId, { $addToSet: { addedBooks: bookId } });
     });
 
     describe('asynchronous paths', () => {
@@ -214,7 +215,7 @@ describe('updateBook', () => {
             bookData.stock = [1, 2, 3];
             expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `stock ${bookData.stock} is not a number`);
         });
-        
+
         it('should fail on a non-string status', () => {
             bookData.stock = random();
 
