@@ -1,0 +1,20 @@
+{
+  "name": "hexad-library-commons",
+  "version": "1.0.0",
+  "description": "Main utilities meant to be used across several modules in the app as dependencies. Will feature custom error constructors, validators, potential polyfills and whatnot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx mocha utils",
+    "test:debug": "npx mocha debug utils"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.10.4"
+  }
+}
