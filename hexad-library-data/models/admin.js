@@ -5,7 +5,7 @@ const admin = new Schema({
     // Basic credentials, with a set role
     email: { type: String, required: true },
     password: { type: String, required: true },
-    role: 'ADMIN',
+    role: { type: String, default: 'ADMIN' },
 
     // Fields that will automatically update to track history
     created: { type: Date, required: true },
