@@ -7,7 +7,7 @@ const authenticateUser = require('./authenticate-user');
 const bcrypt = require('bcryptjs');
 const { NotAllowedError, NotFoundError, ContentError } = require('hexad-library-commons/errors');
 
-describe('registerUser', () => {
+describe('authenticateUser', () => {
     // Admin-oriented variables
     let adminEmail, adminPassword, adminEncryptedPassword, adminRole, adminId;
 

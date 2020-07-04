@@ -8,4 +8,5 @@ module.exports = {
     addBooks: require('./add-books'),
     retrieveBooks: require('./retrieve-books'),
     updateBook: require('./update-book'),
+    requestBook: require('./request-book'),
 }

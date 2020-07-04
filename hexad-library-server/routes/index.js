@@ -7,6 +7,7 @@ const {
     addBooks,
     retrieveBooks,
     updateBook,
+    requestBook,
 } = require('./handlers');
 const { json: bodyParser } = require('body-parser');
 const { jwtVerifier } = require('../mid-wares');
@@ -24,5 +25,6 @@ router.get('/users/:role', jwtVerifier, retrieveUser);
 router.post('/add-book', [bodyParser(), jwtVerifier], addBooks);
 router.get('/books', retrieveBooks);
 router.patch('/book/:idNumber', [bodyParser(), jwtVerifier], updateBook);
+router.post('/request', [bodyParser(), jwtVerifier], requestBook);
 
 module.exports = router;

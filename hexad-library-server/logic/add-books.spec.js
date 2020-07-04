@@ -12,7 +12,7 @@ describe('addBooks', () => {
     let email, password, encryptedPassword, role, match, adminId;
 
     // Book-oriented variables
-    let title, idNumber, description, author, yearOfPublication, stock;
+    let title, ISBN, description, author, yearOfPublication, stock;
 
     before(async () => {
         await mongoose.connect(TEST_MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -29,7 +29,7 @@ describe('addBooks', () => {
         adminId = admin.id.toString();
 
         title = `title-${random()}`;
-        idNumber = floor(random() * 999999) + 1;
+        ISBN = `ISBN-${random()}`;
         description = `description-${random()}`;
         author = `author-${random()}`;
         yearOfPublication = 1900 + floor(random() * 120);
@@ -38,11 +38,11 @@ describe('addBooks', () => {
 
     describe('asynchronous paths', () => {
         it('should succeed  to add new book stock to the library if the data is valid and the profile is an admin', async () => {
-            const result = await addBooks(adminId, { title, idNumber, description, author, yearOfPublication }, stock);
+            const result = await addBooks(adminId, { title, ISBN, description, author, yearOfPublication }, stock);
 
             expect(result).to.be.undefined;
 
-            const [admin, book] = await Promise.all([Admin.findById(adminId), Book.findOne({ idNumber })]);
+            const [admin, book] = await Promise.all([Admin.findById(adminId), Book.findOne({ ISBN })]);
 
             expect(admin).to.exist;
             expect(admin.addedBooks).to.exist;
@@ -53,7 +53,7 @@ describe('addBooks', () => {
             expect(book).to.exist;
             expect(book).to.be.instanceof(Object);
             expect(book.title).to.equal(title);
-            expect(book.idNumber).to.equal(idNumber);
+            expect(book.ISBN).to.equal(ISBN);
             expect(book.description).to.equal(description);
             expect(book.author).to.equal(author);
             expect(book.yearOfPublication).to.equal(yearOfPublication);
@@ -63,21 +63,21 @@ describe('addBooks', () => {
         });
 
         it('should succeed on updating the books stock if the book was added on the database beforehand', async () => {
-            let book = await Book.create({ title, idNumber, description, author, yearOfPublication, added: new Date(), stock });
+            let book = await Book.create({ title, ISBN, description, author, yearOfPublication, added: new Date(), stock });
             await Admin.findByIdAndUpdate(adminId, { $addToSet: { addedBooks: book.id } });
 
             const extraStock = floor(random() * 9999) + 1;
 
-            const result = await addBooks(adminId, { title, idNumber, description, author, yearOfPublication }, extraStock);
+            const result = await addBooks(adminId, { title, ISBN, description, author, yearOfPublication }, extraStock);
 
             expect(result).to.be.undefined;
 
-            book = await Book.findOne({ idNumber });
+            book = await Book.findOne({ ISBN });
 
             expect(book).to.exist;
             expect(book).to.be.instanceof(Object);
             expect(book.title).to.equal(title);
-            expect(book.idNumber).to.equal(idNumber);
+            expect(book.ISBN).to.equal(ISBN);
             expect(book.description).to.equal(description);
             expect(book.author).to.equal(author);
             expect(book.yearOfPublication).to.equal(yearOfPublication);
@@ -87,18 +87,18 @@ describe('addBooks', () => {
         });
 
         it('should fail to add the book if a book with a certain idNumber exists but the title does not match with the one provided', async () => {
-            await addBooks(adminId, { title, idNumber, description, author, yearOfPublication }, stock);
+            await addBooks(adminId, { title, ISBN, description, author, yearOfPublication }, stock);
             let _error;
 
             try {
-                await addBooks(adminId, { title: `${title}-wrong`, idNumber, description, author, yearOfPublication }, stock);
+                await addBooks(adminId, { title: `${title}-wrong`, ISBN, description, author, yearOfPublication }, stock);
             } catch (error) {
                 _error = error;
             }
 
             expect(_error).to.exist;
             expect(_error).to.be.instanceof(NotAllowedError);
-            expect(_error.message).to.equal(`book with title ${title}-wrong has a different idNumber`)
+            expect(_error.message).to.equal(`book with title ${title}-wrong has a different ISBN`)
         })
 
         it('should fail to add books if the admin trying to add them does not exist', async () => {
@@ -107,7 +107,7 @@ describe('addBooks', () => {
             let _error;
 
             try {
-                await addBooks(adminId, { title, idNumber, description, author, yearOfPublication }, stock);
+                await addBooks(adminId, { title, ISBN, description, author, yearOfPublication }, stock);
             } catch (error) {
                 _error = error;
             }
@@ -119,7 +119,7 @@ describe('addBooks', () => {
     });
 
     describe('synchronous paths', () => {
-        let bookData = { title, idNumber, description, author, yearOfPublication };
+        let bookData = { title, ISBN, description, author, yearOfPublication };
 
         it('should fail on a non-string adminId', () => {
             adminId = random();
@@ -167,24 +167,24 @@ describe('addBooks', () => {
             expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `title ${bookData.title} is not a string`);
         });
 
-        it('should fail on a non-number idNumber', () => {
+        it('should fail on a non-string ISBN', () => {
             bookData.title = `title-${random()}`;
 
-            bookData.idNumber = 'string';
-            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = random();
+            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
 
-            bookData.idNumber = undefined;
-            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = undefined;
+            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
 
-            bookData.idNumber = false;
-            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = false;
+            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
 
-            bookData.idNumber = [1, 2, 3];
-            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = [1, 2, 3];
+            expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
         });
 
         it('should fail on a non-string description, if provided', () => {
-            bookData.idNumber = random();
+            bookData.ISBN = `ISBN-${random()}`;
 
             bookData.description = random();
             expect(() => addBooks(adminId, bookData, stock)).to.throw(TypeError, `description ${bookData.description} is not a string`);

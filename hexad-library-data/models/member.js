@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema, Types: { ObjectId } } = mongoose;
+const request = require('./request');
 
 const member = new Schema({
     // Basic credentials, with a set role
@@ -14,7 +15,7 @@ const member = new Schema({
     // Library-related fields
 
     // Max: 2 books to borrow
-    requestedBooks: [{ type: String }],
+    requestedBooks: [request],
     borrowedBooks: {
         type: [{
             bookId: { type: ObjectId, ref: 'Book' },
