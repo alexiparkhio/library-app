@@ -2,6 +2,7 @@ const { Router } = require('express');
 const {
     registerUser,
     authenticateUser,
+    retrieveUser,
 
     addBooks,
     retrieveBooks,
@@ -16,6 +17,7 @@ const router = new Router();
 // User-oriented endpoints
 router.post('/users', bodyParser(), registerUser);
 router.post('/users/auth', bodyParser(), authenticateUser);
+router.get('/users/:role', jwtVerifier, retrieveUser);
 
 // Book-oriented endpoints
 router.post('/add-book', [bodyParser(), jwtVerifier], addBooks);

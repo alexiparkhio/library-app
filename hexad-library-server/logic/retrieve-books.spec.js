@@ -41,36 +41,39 @@ describe('retrieveBooks', () => {
         };
     })
 
-    it('should succeed on retrieving all available books in an array', async () => {
-        const books = await retrieveBooks();
+    describe('asychronous paths', () => {
 
-        expect(books).to.exist;
-        expect(books).to.be.instanceof(Array);
-        expect(books.length).to.equal(10);
-        
-        books.forEach((book, index) => {
-            expect(book).to.be.instanceof(Object);
-            expect(book.title).to.equal(`title-${index}`);
-            expect(book.description).to.equal(`description-${index}`);
-            expect(book.author).to.equal(`author-${index}`);
-            expect(book.idNumber).to.equal(index);
-            expect(book.yearOfPublication).to.equal(index);
-            expect(book.stock).to.equal(index);
-            expect(book._id).to.be.undefined;
-            expect(book.__v).to.be.undefined;
+        it('should succeed on retrieving all available books in an array', async () => {
+            const books = await retrieveBooks();
+
+            expect(books).to.exist;
+            expect(books).to.be.instanceof(Array);
+            expect(books.length).to.equal(10);
+
+            books.forEach((book, index) => {
+                expect(book).to.be.instanceof(Object);
+                expect(book.title).to.equal(`title-${index}`);
+                expect(book.description).to.equal(`description-${index}`);
+                expect(book.author).to.equal(`author-${index}`);
+                expect(book.idNumber).to.equal(index);
+                expect(book.yearOfPublication).to.equal(index);
+                expect(book.stock).to.equal(index);
+                expect(book._id).to.be.undefined;
+                expect(book.__v).to.be.undefined;
+            })
+        });
+
+        it('should successfully retrieve an empty array if no books are there to display', async () => {
+            await Book.deleteMany();
+
+            const books = await retrieveBooks();
+
+            expect(books).to.exist;
+            expect(books).to.be.instanceof(Array);
+            expect(books.length).to.equal(0);
         })
-    });
-    
-    it('should successfully retrieve an empty array if no books are there to display', async () => {
-        await Book.deleteMany();
-
-        const books = await retrieveBooks();
-    
-        expect(books).to.exist;
-        expect(books).to.be.instanceof(Array);
-        expect(books.length).to.equal(0);
     })
-    
+
     afterEach(async () => await Promise.all([Admin.deleteMany(), Member.deleteMany(), Book.deleteMany()]));
 
     after(async () => {
