@@ -20,23 +20,23 @@ module.exports = (adminId, bookData, stock) => {
     validate.string(adminId, 'adminId');
     validate.type(bookData, 'bookData', Object);
     validate.string(bookData.title, 'title');
-    validate.type(bookData.idNumber, 'idNumber', Number);
+    validate.string(bookData.ISBN, 'ISBN');
     if (typeof bookData.description !== 'undefined') validate.string(bookData.description, 'description');
     if (typeof bookData.author !== 'undefined') validate.string(bookData.author, 'author');
     if (typeof bookData.yearOfPublication !== 'undefined') validate.type(bookData.yearOfPublication, 'yearOfPublication', Number);
     validate.type(stock, 'stock', Number);
 
     return (async () => {
-        let [admin, book] = await Promise.all([Admin.findById(adminId), Book.findOne({ idNumber: bookData.idNumber })]);
+        let [admin, book] = await Promise.all([Admin.findById(adminId), Book.findOne({ ISBN: bookData.ISBN })]);
         if (!admin) throw new NotFoundError(`admin with id ${adminId} does not exist`);
 
         if (book && book.title === bookData.title) {
             stock += book.stock;
-            await Book.findOneAndUpdate({ idNumber: bookData.idNumber }, { $set: { stock } });
+            await Book.findOneAndUpdate({ ISBN: bookData.ISBN }, { $set: { stock } });
 
             return;
         } else if (book && book.title !== bookData.title) {
-            throw new NotAllowedError(`book with title ${bookData.title} has a different idNumber`);
+            throw new NotAllowedError(`book with title ${bookData.title} has a different ISBN`);
             
         } else if (!book) {
             bookData.stock = stock;

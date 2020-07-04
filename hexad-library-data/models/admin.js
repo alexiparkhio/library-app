@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema, Types: { ObjectId } } = mongoose;
+const request = require('./request');
 
 const admin = new Schema({
     // Basic credentials, with a set role
@@ -13,12 +14,7 @@ const admin = new Schema({
 
     // Library-related fields
     addedBooks: [{ type: ObjectId, ref: 'Book' }],
-    requests: {
-        type: [{
-            memberId: { type: ObjectId, ref: 'Member' },
-            bookId: { type: String }
-        }]
-    },
+    requests: [request],
     rentedBooks: {
         type: [{
             memberId: { type: ObjectId, ref: 'Member' },

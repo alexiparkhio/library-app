@@ -20,27 +20,29 @@ module.exports = (id, role) => {
         if (role === 'ADMIN') {
             const admin = await Admin.findById(id)
                 .lean()
-                .populate('requests.user', 'email')
-                .populate('requests.book', 'idNumber title description author stock yearOfPublication')
                 .populate('rentedBooks.user', 'email')
-                .populate('rentedBooks.book', 'idNumber title description author stock yearOfPublication');
+                .populate('rentedBooks.book', 'ISBN title description author stock yearOfPublication');
 
             if (!admin) throw new NotFoundError(`admin with id ${id} does not exist`);
 
             admin.id = admin._id.toString();
             delete admin._id, delete admin.__v, delete admin.password;
 
+            admin.requests.forEach(request => delete request._id);
+
             return admin;
         } else if (role === 'MEMBER') {
             const member = await Member.findById(id)
                 .lean()
-                .populate('requestedBooks', 'idNumber title description author stock yearOfPublication')
-                .populate('borrowedBooks.book', 'idNumber title description author stock yearOfPublication');
+                .populate('requestedBooks', 'ISBN')
+                .populate('borrowedBooks.book', 'ISBN title description author stock yearOfPublication');
 
             if (!member) throw new NotFoundError(`member with id ${id} does not exist`);
 
             member.id = member._id.toString();
             delete member._id, delete member.__v, delete member.password;
+
+            member.requestedBooks.forEach(request => delete request._id);
 
             return member;
         }

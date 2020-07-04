@@ -11,7 +11,7 @@ describe('retrieveBooks', () => {
     let email, password, encryptedPassword, adminId;
 
     // Book-oriented variables
-    let title, description, stock, author, idNumber, yearOfPublication;
+    let title, description, stock, author, ISBN, yearOfPublication;
 
     before(async () => {
         await mongoose.connect(TEST_MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -32,10 +32,10 @@ describe('retrieveBooks', () => {
             description = `description-${i}`;
             author = `author-${i}`;
             yearOfPublication = i;
-            idNumber = i;
+            ISBN = i;
             stock = i;
 
-            const book = await Book.create({ title, description, author, yearOfPublication, idNumber, stock, added: new Date() });
+            const book = await Book.create({ title, description, author, yearOfPublication, ISBN, stock, added: new Date() });
 
             await Admin.findByIdAndUpdate(adminId, { $addToSet: { addedBooks: book.id } });
         };
@@ -55,7 +55,7 @@ describe('retrieveBooks', () => {
                 expect(book.title).to.equal(`title-${index}`);
                 expect(book.description).to.equal(`description-${index}`);
                 expect(book.author).to.equal(`author-${index}`);
-                expect(book.idNumber).to.equal(index);
+                expect(book.ISBN).to.equal(index.toString());
                 expect(book.yearOfPublication).to.equal(index);
                 expect(book.stock).to.equal(index);
                 expect(book._id).to.be.undefined;

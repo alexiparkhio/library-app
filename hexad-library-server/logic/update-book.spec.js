@@ -16,7 +16,7 @@ describe('updateBook', () => {
     let memberEmail, memberPassword, memberEncryptedPassword, memberRole, memberId;
 
     // Book-oriented variables
-    let title, idNumber, description, author, yearOfPublication, stock, status, bookId;
+    let title, ISBN, description, author, yearOfPublication, stock, status, bookId;
     let STATUS = ['available', 'unavailable'];
 
     before(async () => {
@@ -42,13 +42,13 @@ describe('updateBook', () => {
         memberId = member.id.toString();
 
         title = `title-${random()}`;
-        idNumber = floor(random() * 999999) + 1;
+        ISBN = `ISBN-${random()}`;
         description = `description-${random()}`;
         author = `author-${random()}`;
         yearOfPublication = 1900 + floor(random() * 120);
         stock = floor(random() * 99) + 1;
 
-        const book = await Book.create({ title, author, description, idNumber, yearOfPublication, stock, status: 'available', added: new Date() });
+        const book = await Book.create({ title, author, description, ISBN, yearOfPublication, stock, status: 'available', added: new Date() });
         bookId = book.id.toString();
     });
 
@@ -70,12 +70,12 @@ describe('updateBook', () => {
                 status: updatedStatus,
                 yearOfPublication: updatedYearOfPublication,
                 stock: updatedStock,
-                idNumber
+                ISBN
             });
 
             expect(result).to.be.undefined;
 
-            const book = await Book.findOne({ idNumber });
+            const book = await Book.findOne({ ISBN });
 
             expect(book).to.exist;
             expect(book).to.be.instanceof(Object);
@@ -99,7 +99,7 @@ describe('updateBook', () => {
                     status: updatedStatus,
                     yearOfPublication: updatedYearOfPublication,
                     stock: updatedStock,
-                    idNumber
+                    ISBN
                 });
             } catch (error) {
                 _error = error;
@@ -107,7 +107,7 @@ describe('updateBook', () => {
 
             expect(_error).to.exist;
             expect(_error).to.be.instanceof(NotFoundError);
-            expect(_error.message).to.equal(`book with id ${idNumber} does not exist`);
+            expect(_error.message).to.equal(`book with ISBN ${ISBN} does not exist`);
         });
 
         it('should fail to update a book if the admin does not exist', async () => {
@@ -122,7 +122,7 @@ describe('updateBook', () => {
                     status: updatedStatus,
                     yearOfPublication: updatedYearOfPublication,
                     stock: updatedStock,
-                    idNumber
+                    ISBN
                 });
             } catch (error) {
                 _error = error;
@@ -135,7 +135,7 @@ describe('updateBook', () => {
     });
 
     describe('synchronous paths', () => {
-        let bookData = { title, idNumber, description, author, yearOfPublication, stock, status };
+        let bookData = { title, ISBN, description, author, yearOfPublication, stock, status };
 
         it('should fail on a non-string adminId', () => {
             adminId = random();
@@ -183,24 +183,24 @@ describe('updateBook', () => {
             expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `title ${bookData.title} is not a string`);
         });
 
-        it('should fail on a non-number idNumber', () => {
+        it('should fail on a non-string ISBN', () => {
             bookData.title = `title-${random()}`;
 
-            bookData.idNumber = 'string';
-            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = random();
+            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
 
-            bookData.idNumber = undefined;
-            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = undefined;
+            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
 
-            bookData.idNumber = false;
-            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = false;
+            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
 
-            bookData.idNumber = [1, 2, 3];
-            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `idNumber ${bookData.idNumber} is not a number`);
+            bookData.ISBN = [1, 2, 3];
+            expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `ISBN ${bookData.ISBN} is not a string`);
         });
 
         it('should fail on a non-number stock', () => {
-            bookData.idNumber = idNumber;
+            bookData.ISBN = ISBN;
 
             bookData.stock = 'string';
             expect(() => updateBook(adminId, bookData)).to.throw(TypeError, `stock ${bookData.stock} is not a number`);

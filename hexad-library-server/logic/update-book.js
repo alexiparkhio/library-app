@@ -19,7 +19,7 @@ module.exports = (adminId, bookData) => {
     validate.string(adminId, 'adminId');
     validate.type(bookData, 'bookData', Object);
     validate.string(bookData.title, 'title');
-    validate.type(bookData.idNumber, 'idNumber', Number);
+    validate.string(bookData.ISBN, 'ISBN');
     validate.type(bookData.stock, 'stock', Number);
     validate.string(bookData.status, 'status');
     if (typeof bookData.description !== 'undefined') validate.string(bookData.description, 'description');
@@ -27,11 +27,11 @@ module.exports = (adminId, bookData) => {
     if (typeof bookData.yearOfPublication !== 'undefined') validate.type(bookData.yearOfPublication, 'yearOfPublication', Number);
 
     return (async () => {
-        let [admin, book] = await Promise.all([Admin.findById(adminId), Book.findOne({ idNumber: bookData.idNumber })]);
+        let [admin, book] = await Promise.all([Admin.findById(adminId), Book.findOne({ ISBN: bookData.ISBN })]);
         if (!admin) throw new NotFoundError(`admin with id ${adminId} does not exist`);
-        if (!book) throw new NotFoundError(`book with id ${bookData.idNumber} does not exist`);
+        if (!book) throw new NotFoundError(`book with ISBN ${bookData.ISBN} does not exist`);
 
-        await Book.findOneAndUpdate({ idNumber: bookData.idNumber }, { $set: bookData });
+        await Book.findOneAndUpdate({ ISBN: bookData.ISBN }, { $set: bookData });
 
         return;
     })();
