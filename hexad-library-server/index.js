@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { env: { PORT = 8080, MONGODB_URL, NODE_ENV: env } } = process;
+const { env: { PORT = 8080, MONGODB_URL, NODE_ENV: env, HOST } } = process;
 const express = require('express');
 const { mongoose } = require('hexad-library-data');
 const morgan = require('morgan');
@@ -41,7 +41,7 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
         api.use('/api', router);
 
         // Log if the server has been successfully initiated
-        api.listen(PORT, () => logger.info(`Server running and listening to port ${PORT}`));
+        api.listen(PORT, HOST, () => logger.info(`Server running and listening at http://${HOST}:${PORT}`));
 
         // Log if the server is abruptly disconnected
         process.on('SIGINT', () => {
