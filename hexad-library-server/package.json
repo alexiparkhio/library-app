@@ -1,0 +1,29 @@
+{
+  "name": "hexad-library-server",
+  "version": "1.0.0",
+  "description": "Main API of the application. Built with Express.js and connected to a MongoDB database in order to treat the data. The API is RESTful and tested with Mocha/Chai. It also features some additional scripts that will fasten some demo purposes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "atob": "^2.1.2",
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "hexad-library-data": "file:../hexad-library-data",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0"
+  }
+}
