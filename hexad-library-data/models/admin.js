@@ -12,31 +12,26 @@ const admin = new Schema({
     authenticated: { type: Date },
 
     // Library-related fields
-    addedBooks: [
-        {
-            type: {
-                bookId: { type: ObjectId, ref: 'Book' },
-                stock: { type: Number }
-            }
-        }
-    ],
-    requests: [
-        {
-            type: {
-                memberId: { type: ObjectId, ref: 'Member' },
-                bookId: { type: ObjectId, ref: 'Book' }
-            }
-        }
-    ],
-    rentedBooks: [
-        {
-            type: {
-                memberId: { type: ObjectId, ref: 'Member' },
-                bookId: { type: ObjectId, ref: 'Book' },
-                expiracyDate: { type: Date }
-            }
-        }
-    ]
+    addedBooks: {
+        type: [{
+            bookId: { type: ObjectId, ref: 'Book' },
+            stock: { type: Number }
+
+        }]
+    },
+    requests: {
+        type: [{
+            memberId: { type: ObjectId, ref: 'Member' },
+            bookId: { type: ObjectId, ref: 'Book' }
+        }]
+    },
+    rentedBooks: {
+        type: [{
+            memberId: { type: ObjectId, ref: 'Member' },
+            bookId: { type: ObjectId, ref: 'Book' },
+            expiracyDate: { type: Date }
+        }]
+    }
 });
 
 module.exports = mongoose.model('Admin', admin);
