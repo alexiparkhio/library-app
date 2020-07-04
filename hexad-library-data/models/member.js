@@ -5,7 +5,7 @@ const member = new Schema({
     // Basic credentials, with a set role
     email: { type: String, required: true },
     password: { type: String, required: true },
-    role: 'USER',
+    role: { type: String, default: 'MEMBER' },
 
     // Fields that will automatically update to track history
     created: { type: Date, required: true },
