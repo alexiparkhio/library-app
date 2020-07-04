@@ -51,6 +51,9 @@ describe('registerUser', () => {
             expect(result).to.exist;
             expect(result).to.be.a('string');
             expect(result).to.equal(adminId);
+
+            const admin = await Admin.findOne({ email: adminEmail });
+            expect(admin.authenticated).to.be.instanceof(Date);
         });
 
         it('should succeed on authenticate a member on correct credentials, and return its id', async () => {
@@ -59,6 +62,9 @@ describe('registerUser', () => {
             expect(result).to.exist;
             expect(result).to.be.a('string');
             expect(result).to.equal(memberId);
+
+            const member = await Member.findOne({ email: memberEmail });
+            expect(member.authenticated).to.be.instanceof(Date);
         });
 
         it('should fail to authenticate the admin if the credentials are wrong', async () => {
@@ -66,7 +72,7 @@ describe('registerUser', () => {
 
             try {
                 await authenticateUser(adminEmail, `${adminPassword}-wrong`, adminRole);
-            } catch(error) {
+            } catch (error) {
                 _error = error;
             }
 
@@ -74,13 +80,13 @@ describe('registerUser', () => {
             expect(_error).to.be.instanceof(NotAllowedError);
             expect(_error.message).to.equal('wrong credentials');
         });
-        
+
         it('should fail to authenticate the member if the credentials are wrong', async () => {
             let _error;
 
             try {
                 await authenticateUser(memberEmail, `${memberPassword}-wrong`, memberRole);
-            } catch(error) {
+            } catch (error) {
                 _error = error;
             }
 
@@ -96,7 +102,7 @@ describe('registerUser', () => {
 
             try {
                 await authenticateUser(adminEmail, adminPassword, adminRole);
-            } catch(error) {
+            } catch (error) {
                 _error = error;
             }
 
@@ -104,7 +110,7 @@ describe('registerUser', () => {
             expect(_error).to.be.instanceof(NotFoundError);
             expect(_error.message).to.equal(`admin with email ${adminEmail} does not exist`);
         });
-        
+
         it('should fail to authenticate the member if the member does not exist', async () => {
             await Member.deleteMany();
 
@@ -112,7 +118,7 @@ describe('registerUser', () => {
 
             try {
                 await authenticateUser(memberEmail, memberPassword, memberRole);
-            } catch(error) {
+            } catch (error) {
                 _error = error;
             }
 
@@ -138,7 +144,7 @@ describe('registerUser', () => {
         it('should fail on a badly-formatted email', () => {
             email = 'i7u23598';
             expect(() => authenticateUser(email, password, role)).to.throw(ContentError, `${email} is not an e-mail`);
-            
+
             email = 'i7u23598@';
             expect(() => authenticateUser(email, password, role)).to.throw(ContentError, `${email} is not an e-mail`);
 
@@ -157,7 +163,7 @@ describe('registerUser', () => {
 
             password = false;
             expect(() => authenticateUser(email, password, role)).to.throw(TypeError, `password ${password} is not a string`);
-            
+
             password = [1, 2, 3];
             expect(() => authenticateUser(email, password, role)).to.throw(TypeError, `password ${password} is not a string`);
         });
@@ -173,7 +179,7 @@ describe('registerUser', () => {
 
             role = false;
             expect(() => authenticateUser(email, password, role)).to.throw(TypeError, `role ${role} is not a string`);
-            
+
             role = [1, 2, 3];
             expect(() => authenticateUser(email, password, role)).to.throw(TypeError, `role ${role} is not a string`);
         });
