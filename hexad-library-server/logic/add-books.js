@@ -30,12 +30,15 @@ module.exports = (adminId, bookData, stock) => {
         let [admin, book] = await Promise.all([Admin.findById(adminId), Book.findOne({ idNumber: bookData.idNumber })]);
         if (!admin) throw new NotFoundError(`admin with id ${adminId} does not exist`);
 
-        if (book) {
+        if (book && book.title === bookData.title) {
             stock += book.stock;
             await Book.findOneAndUpdate({ idNumber: bookData.idNumber }, { $set: { stock } });
 
             return;
-        } else {
+        } else if (book && book.title !== bookData.title) {
+            throw new NotAllowedError(`book with title ${bookData.title} has a different idNumber`);
+            
+        } else if (!book) {
             bookData.stock = stock;
             bookData.added = new Date();
             book = await Book.create(bookData);
