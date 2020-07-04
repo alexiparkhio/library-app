@@ -15,14 +15,12 @@ const member = new Schema({
 
     // Max: 2 books to borrow
     requestedBooks: [{ type: ObjectId, ref: 'Book' }],
-    borrowedBooks: [
-        {
-            type: {
-                bookId: { type: ObjectId, ref: 'Book' },
-                expiracyDate: { type: Date }
-            }
-        }
-    ]
+    borrowedBooks: {
+        type: [{
+            bookId: { type: ObjectId, ref: 'Book' },
+            expiracyDate: { type: Date }
+        }]
+    }
 });
 
 module.exports = mongoose.model('Member', member);

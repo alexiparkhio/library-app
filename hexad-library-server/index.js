@@ -1,11 +1,12 @@
 require('dotenv').config();
-const { env: { PORT = 8080, MONGODB_URL } } = process;
+const { env: { PORT = 8080, MONGODB_URL, NODE_ENV: env } } = process;
 const express = require('express');
 const { mongoose } = require('hexad-library-data');
 const morgan = require('morgan');
 const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 
 /* The connection to the database will be required even before the express server can start at all. 
 This will ensure that no access to the API can be stablished if the database is not running beforehand.*/
