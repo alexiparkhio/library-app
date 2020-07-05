@@ -6,6 +6,7 @@
   "scripts": {
     "test": "npx mocha logic",
     "test:debug": "npx mocha debug logic",
+    "test:coverage": "npx nyc --reporter=html --reporter=text mocha logic/**/*.spec.js",
     "start": "node index.js",
     "start:debug": "node debug index.js",
     "watch": "npx nodemon index.js"
