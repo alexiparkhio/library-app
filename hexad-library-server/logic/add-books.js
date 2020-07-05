@@ -2,7 +2,7 @@ const {
     utils: { validate },
     errors: { NotFoundError, NotAllowedError }
 } = require('hexad-library-commons');
-const { models: { Admin, Book } } = require('hexad-library-data');
+const { models: { Admin, Book, Member } } = require('hexad-library-data');
 
 /***
  * Adds a new Book to the database or updates the stock of an already existing unit
@@ -37,13 +37,21 @@ module.exports = (adminId, bookData, stock) => {
             return;
         } else if (book && book.title !== bookData.title) {
             throw new NotAllowedError(`book with title ${bookData.title} has a different ISBN`);
-            
+
         } else if (!book) {
             bookData.stock = stock;
             bookData.added = new Date();
             book = await Book.create(bookData);
 
             await Admin.findByIdAndUpdate(adminId, { $addToSet: { addedBooks: book.id } });
+
+            // Members who caused this book to be added get the bonus borrow limit, unless this bonus is already 4
+            const members = await Member.find({ requestedBooks: { ISBN: bookData.ISBN } });
+
+            for (let i = 0; i < members.length; i++) {
+                const borrowLimit = members[0].borrowLimit === 4 ? 4 : members[0].borrowLimit++;
+                await Member.findByIdAndUpdate(members[0].id, { $set: { borrowLimit }, $pull: { requestedBooks: { ISBN: bookData.ISBN } } });
+            };
 
             return;
         }
