@@ -20,15 +20,15 @@
                 <i class="header__logout icon fas fa-sign-out-alt"></i> -->
                 <!-- <i class="header__admin icon fas fa-user-shield"></i> -->
                 <!--GUEST USER-->
-                <i class="header__sign-in icon fas fa-sign-in-alt"></i>
                 <i class="header__sign-up icon fas fa-user-plus"></i>
+                <i class="header__sign-in icon fas fa-sign-in-alt"></i>
             </div>
         </header>
 
         <!--LANDING PAGE-->
         <div class="main-body">
             <!--SIGN IN WINDOW-->
-            <form class="sign-in">
+            <!-- <form class="sign-in">
                 <p class="sign-in__header">Sign in</p>
                 <div class="sign-in__separator"></div>
                 <input type="text" name="email" class="sign-in__input" placeholder="example@mail.com" required>
@@ -45,6 +45,25 @@
                     </div>
                 </div>
                 <button type="submit" class="sign-in__submit-button">Log in</button>
+            </form> -->
+            
+            <form class="sign-up">
+                <p class="sign-up__header">Sign up</p>
+                <div class="sign-up__separator"></div>
+                <input type="text" name="email" class="sign-up__input" placeholder="example@mail.com" required>
+                <input type="password" name="password" class="sign-up__input" placeholder="Insert your password" required>
+                <div class="sign-up__profile-container">
+                    <div class="sign-up__profile-item">
+                        <i class="sign-up__icon icon fas fa-user"></i>
+                        <p class="sign-up__profile-text">Member</p>
+                    </div>
+                    
+                    <div class="sign-up__profile-item">
+                        <i class="sign-up__icon icon fas fa-user-shield"></i>
+                        <p class="sign-up__profile-text">Admin</p>
+                    </div>
+                </div>
+                <button type="submit" class="sign-in__submit-button">Register</button>
             </form>
 
             <!--COMMENT THE NAVBAR IF A GUEST IS USING THE SITE-->
