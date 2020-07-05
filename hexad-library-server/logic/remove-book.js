@@ -28,7 +28,7 @@ module.exports = (adminId, ISBN) => {
 
         const [admins, members] = await Promise.all([
             Admin.find({ $or: [{ 'addedBooks': book.id }, { rentedBooks: { bookId: book.id } }] }),
-            Member.find({ borrowedBooks: { bookId: book.id } })
+            Member.find({ $or: [{ borrowedBooks: { bookId: book.id } }, { wishlistedBooks: book.id }] })
         ]);
 
         // Using a conventional for in order to avoid a different async/await scope
@@ -37,7 +37,7 @@ module.exports = (adminId, ISBN) => {
         };
 
         for (let i = 0; i < members.length; i++) {
-            await Member.findByIdAndUpdate(members[i].id, { $pull: { borrowedBooks: { bookId: book.id } } })
+            await Member.findByIdAndUpdate(members[i].id, { $pull: { borrowedBooks: { bookId: book.id }, wishlistedBooks: book.id } })
         };
 
         await Book.findByIdAndRemove(book.id);
