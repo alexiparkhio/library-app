@@ -4,6 +4,12 @@ import { App } from './components';
 import './styles.sass';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter as Router } from 'react-router-dom'
+import { context } from './logic';
+
+const { REACT_APP_API_URL: API_URL } = process.env;
+
+context.API_URL = API_URL;
+context.storage = sessionStorage;
 
 ReactDOM.render(
   <React.StrictMode>
