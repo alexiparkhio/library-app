@@ -16,17 +16,56 @@
                 <!-- <p class="header__welcome">Welcome, Alex!</p> -->
                 <p class="header__welcome">Sign-in/up in order to use all app's features</p>
                 <!--LOGGED USER-->
-                <!-- <i class="header__user icon fas fa-user"></i>
+                <!-- <i class="header__member icon fas fa-user"></i>
                 <i class="header__logout icon fas fa-sign-out-alt"></i> -->
-
+                <!-- <i class="header__admin icon fas fa-user-shield"></i> -->
                 <!--GUEST USER-->
-                <i class="header__sign-in icon fas fa-sign-in-alt"></i>
                 <i class="header__sign-up icon fas fa-user-plus"></i>
+                <i class="header__sign-in icon fas fa-sign-in-alt"></i>
             </div>
         </header>
 
         <!--LANDING PAGE-->
         <div class="main-body">
+            <!--SIGN IN WINDOW-->
+            <!-- <form class="sign-in">
+                <p class="sign-in__header">Sign in</p>
+                <div class="sign-in__separator"></div>
+                <input type="text" name="email" class="sign-in__input" placeholder="example@mail.com" required>
+                <input type="password" name="password" class="sign-in__input" placeholder="Insert your password" required>
+                <div class="sign-in__profile-container">
+                    <div class="sign-in__profile-item">
+                        <i class="sign-in__icon icon fas fa-user"></i>
+                        <p class="sign-in__profile-text">Member</p>
+                    </div>
+                    
+                    <div class="sign-in__profile-item">
+                        <i class="sign-in__icon icon fas fa-user-shield"></i>
+                        <p class="sign-in__profile-text">Admin</p>
+                    </div>
+                </div>
+                <button type="submit" class="sign-in__submit-button">Log in</button>
+            </form> -->
+            
+            <form class="sign-up">
+                <p class="sign-up__header">Sign up</p>
+                <div class="sign-up__separator"></div>
+                <input type="text" name="email" class="sign-up__input" placeholder="example@mail.com" required>
+                <input type="password" name="password" class="sign-up__input" placeholder="Insert your password" required>
+                <div class="sign-up__profile-container">
+                    <div class="sign-up__profile-item">
+                        <i class="sign-up__icon icon fas fa-user"></i>
+                        <p class="sign-up__profile-text">Member</p>
+                    </div>
+                    
+                    <div class="sign-up__profile-item">
+                        <i class="sign-up__icon icon fas fa-user-shield"></i>
+                        <p class="sign-up__profile-text">Admin</p>
+                    </div>
+                </div>
+                <button type="submit" class="sign-in__submit-button">Register</button>
+            </form>
+
             <!--COMMENT THE NAVBAR IF A GUEST IS USING THE SITE-->
             <!--NAVBAR FOR ADMIN USERS-->
             <!-- <nav class="nav">
@@ -56,15 +95,15 @@
                 </div>
             </nav> -->
             
-            <main class="books">
+            <!-- <main class="books">
                 <div class="books__container">
                     <p class="books__header">Available Books</p>
                     <input type="text" name="query" class="books__input" placeholder="Type here to search for a book">
 
-                    <!--DISABLE BUTTONS IF THE USER IS NOT LOGGED IN-->
+                    DISABLE BUTTONS IF THE USER IS NOT LOGGED IN
                     <ul class="books__list">
-                        <!--BOOK ITEMS FOR ADMIN USERS-->
-                        <!-- <li class="book">
+                        BOOK ITEMS FOR ADMIN USERS
+                        <li class="book">
                             <section class="book__item">
                                 <p class="book__title">La conjura de los necios (Someone, 1984)</p>
                                 <p class="book__status available">Status: available</p>
@@ -138,9 +177,9 @@
                                     </div>
                                 </div>
                             </section>
-                        </li> -->
+                        </li>
 
-                        <!--BOOK ITEMS FOR MEMBER USERS-->
+                        BOOK ITEMS FOR MEMBER USERS
                         <li class="book">
                             <section class="book__item">
                                 <p class="book__title">La conjura de los necios (Someone, 1984)</p>
@@ -218,10 +257,8 @@
                         </li>
                     </ul>
                 </div>
-            </main>
+            </main> -->
         </div>
-
-
     </div>
 </body>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
