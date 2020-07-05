@@ -27,7 +27,7 @@
 
         <!--LANDING PAGE-->
         <div class="main-body">
-            <!--SIGN IN WINDOW-->
+            <!--SIGN IN/UP WINDOWS-->
             <!-- <form class="sign-in">
                 <p class="sign-in__header">Sign in</p>
                 <div class="sign-in__separator"></div>
@@ -47,7 +47,7 @@
                 <button type="submit" class="sign-in__submit-button">Log in</button>
             </form> -->
             
-            <form class="sign-up">
+            <!-- <form class="sign-up">
                 <p class="sign-up__header">Sign up</p>
                 <div class="sign-up__separator"></div>
                 <input type="text" name="email" class="sign-up__input" placeholder="example@mail.com" required>
@@ -64,7 +64,22 @@
                     </div>
                 </div>
                 <button type="submit" class="sign-in__submit-button">Register</button>
-            </form>
+            </form> -->
+            
+            <!--ADD NEW BOOK WINDOW-->
+                <form class="add-book">
+                    <i class="add-book__header fas icon fa-book"></i>
+                    <p class="add-book__header">Add a new book to the library</p>
+                    <div class="add-book__separator"></div>
+                    <input type="text" name="title" class="add-book__input" placeholder="Book Title" required>
+                    <input type="text" name="ISBN" class="add-book__input" placeholder="ISBN" required>
+                    <input type="text" name="author" class="add-book__input" placeholder="Author">
+                    <input type="number" name="yearOfPublication" class="add-book__input" placeholder="Year of publication">
+                    <textarea name="password" class="add-book__input" placeholder="Book description (optional)" rows="4"></textarea>
+                    <input type="number" name="stock" class="add-book__input" placeholder="Amount of stock" required>
+                    
+                    <button type="submit" class="add-book__submit-button">Add book to the library</button>
+                </form>
 
             <!--COMMENT THE NAVBAR IF A GUEST IS USING THE SITE-->
             <!--NAVBAR FOR ADMIN USERS-->
@@ -259,6 +274,10 @@
                 </div>
             </main> -->
         </div>
+
+        <footer class="footer">
+            <p class="footer__text">© All rights reserved to Àlex Park Viñas</p>
+        </footer>
     </div>
 </body>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
