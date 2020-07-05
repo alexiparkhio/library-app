@@ -15,13 +15,18 @@ const member = new Schema({
     // Library-related fields
 
     // Max: 2 books to borrow
+    borrowLimit: { type: Number, default: 2 },
     requestedBooks: [request],
     borrowedBooks: {
         type: [{
             bookId: { type: ObjectId, ref: 'Book' },
-            expiracyDate: { type: Date }
+            expiracyDate: { type: Date },
+            daysCount: { type: Number },
         }]
-    }
+    },
+    overdueDays: { type: Number, default: 0 },
+
+    wishlistedBooks: [{ type: ObjectId, ref: 'Book' }],
 });
 
 module.exports = mongoose.model('Member', member);
