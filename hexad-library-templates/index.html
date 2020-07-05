@@ -5,20 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hexad Library</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://hexad.de/wp-content/uploads/2019/11/favicon-152.png" type="image/x-icon">
 </head>
 <body>
     <div class="main">
         <header class="header">
             <div class="header__grid">
                 <p class="header__title"><i class="fas icon fa-book"></i>Hexad Library</p>
-                <p class="header__welcome">Welcome, Alex!</p>
-                <i class="header__user icon fas fa-user"></i>
-                <i class="header__logout icon fas fa-sign-out-alt"></i>
+                <!--SWITCH TO A LOGIN/REGISTER BUTTONS IF GUEST HAS ENTERED-->
+                <!-- <p class="header__welcome">Welcome, Alex!</p> -->
+                <p class="header__welcome">Sign-in/up in order to use all app's features</p>
+                <!--LOGGED USER-->
+                <!-- <i class="header__user icon fas fa-user"></i>
+                <i class="header__logout icon fas fa-sign-out-alt"></i> -->
+
+                <!--GUEST USER-->
+                <i class="header__sign-in icon fas fa-sign-in-alt"></i>
+                <i class="header__sign-up icon fas fa-user-plus"></i>
             </div>
         </header>
 
         <!--LANDING PAGE-->
         <div class="main-body">
+            <!--COMMENT THE NAVBAR IF A GUEST IS USING THE SITE-->
             <!--NAVBAR FOR ADMIN USERS-->
             <!-- <nav class="nav">
                 <div class="nav__flex">
@@ -34,7 +43,7 @@
             </nav> -->
             
             <!--NAVBAR FOR MEMBER USERS-->
-            <nav class="nav">
+            <!-- <nav class="nav">
                 <div class="nav__flex">
                     <div class="nav__header">
                         <p>Options</p>
@@ -45,16 +54,17 @@
                         <li class="nav__option"><i class="far fa-lightbulb"></i>Request a new book</li>
                     </ul>
                 </div>
-            </nav>
+            </nav> -->
             
             <main class="books">
                 <div class="books__container">
                     <p class="books__header">Available Books</p>
                     <input type="text" name="query" class="books__input" placeholder="Type here to search for a book">
 
+                    <!--DISABLE BUTTONS IF THE USER IS NOT LOGGED IN-->
                     <ul class="books__list">
                         <!--BOOK ITEMS FOR ADMIN USERS-->
-                        <li class="book">
+                        <!-- <li class="book">
                             <section class="book__item">
                                 <p class="book__title">La conjura de los necios (Someone, 1984)</p>
                                 <p class="book__status available">Status: available</p>
@@ -88,65 +98,13 @@
                                 <div class="book__separator"></div>
                                 <div class="book__buttons-container">
                                     <div class="book__button-container">
-                                        <i class="book__button icon fas fa-star"></i>
-                                        <p class="book__button-text">Wishlist this book</p>
+                                        <i class="book__button icon fas fa-trash"></i>
+                                        <p class="book__button-text">Remove this book</p>
                                     </div>
 
                                     <div class="book__button-container">
-                                        <i class="book__button icon fab fa-get-pocket"></i>
-                                        <p class="book__button-text">Borrow this book</p>
-                                    </div>
-
-                                    <div class="book__button-container">
-                                        <i class="book__button fas fa-layer-group"></i>
-                                        <p class="book__button-text">Stock: 0</p>
-                                    </div>
-                                </div>
-                            </section>
-                        </li>
-                        <li class="book">
-                            <section class="book__item">
-                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
-                                <p class="book__status">Status: available</p>
-                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
-                                <p class="book__isbn">ISBN: ISBN934875348979</p>
-                                <div class="book__separator"></div>
-                                <div class="book__buttons-container">
-                                    <div class="book__button-container">
-                                        <i class="book__button icon fas fa-star"></i>
-                                        <p class="book__button-text">Wishlist this book</p>
-                                    </div>
-
-                                    <div class="book__button-container">
-                                        <i class="book__button icon fab fa-get-pocket"></i>
-                                        <p class="book__button-text">Borrow this book</p>
-                                    </div>
-
-                                    <div class="book__button-container">
-                                        <i class="book__button fas fa-layer-group"></i>
-                                        <p class="book__button-text">Stock: 5</p>
-                                    </div>
-                                </div>
-                            </section>
-                        </li>
-
-                        <!--BOOK ITEMS FOR MEMBER USERS-->
-                        <!-- <li class="book">
-                            <section class="book__item">
-                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
-                                <p class="book__status">Status: available</p>
-                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
-                                <p class="book__isbn">ISBN: ISBN934875348979</p>
-                                <div class="book__separator"></div>
-                                <div class="book__buttons-container">
-                                    <div class="book__button-container">
-                                        <i class="book__button icon fas fa-star"></i>
-                                        <p class="book__button-text">Wishlist this book</p>
-                                    </div>
-
-                                    <div class="book__button-container">
-                                        <i class="book__button icon fab fa-get-pocket"></i>
-                                        <p class="book__button-text">Borrow this book</p>
+                                        <i class="book__button icon fas fa-plus-square"></i>
+                                        <p class="book__button-text">Update stock</p>
                                     </div>
 
                                     <div class="book__button-container">
@@ -165,38 +123,13 @@
                                 <div class="book__separator"></div>
                                 <div class="book__buttons-container">
                                     <div class="book__button-container">
-                                        <i class="book__button icon fas fa-star"></i>
-                                        <p class="book__button-text">Wishlist this book</p>
+                                        <i class="book__button icon fas fa-trash"></i>
+                                        <p class="book__button-text">Remove this book</p>
                                     </div>
 
                                     <div class="book__button-container">
-                                        <i class="book__button icon fab fa-get-pocket"></i>
-                                        <p class="book__button-text">Borrow this book</p>
-                                    </div>
-
-                                    <div class="book__button-container">
-                                        <i class="book__button fas fa-layer-group"></i>
-                                        <p class="book__button-text">Stock: 5</p>
-                                    </div>
-                                </div>
-                            </section>
-                        </li>
-                        <li class="book">
-                            <section class="book__item">
-                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
-                                <p class="book__status">Status: available</p>
-                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
-                                <p class="book__isbn">ISBN: ISBN934875348979</p>
-                                <div class="book__separator"></div>
-                                <div class="book__buttons-container">
-                                    <div class="book__button-container">
-                                        <i class="book__button icon fas fa-star"></i>
-                                        <p class="book__button-text">Wishlist this book</p>
-                                    </div>
-
-                                    <div class="book__button-container">
-                                        <i class="book__button icon fab fa-get-pocket"></i>
-                                        <p class="book__button-text">Borrow this book</p>
+                                        <i class="book__button icon fas fa-plus-square"></i>
+                                        <p class="book__button-text">Update stock</p>
                                     </div>
 
                                     <div class="book__button-container">
@@ -206,6 +139,83 @@
                                 </div>
                             </section>
                         </li> -->
+
+                        <!--BOOK ITEMS FOR MEMBER USERS-->
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-star"></i>
+                                        <p class="book__button-text">Wishlist this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fab fa-get-pocket"></i>
+                                        <p class="book__button-text">Borrow this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container disabled">
+                                        <i class="book__button icon fas fa-star"></i>
+                                        <p class="book__button-text">Wishlist this book</p>
+                                    </div>
+
+                                    <div class="book__button-container disabled">
+                                        <i class="book__button icon fab fa-get-pocket"></i>
+                                        <p class="book__button-text">Borrow this book</p>
+                                    </div>
+
+                                    <div class="book__button-container disabled">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-star"></i>
+                                        <p class="book__button-text">Wishlist this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fab fa-get-pocket"></i>
+                                        <p class="book__button-text">Borrow this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
                     </ul>
                 </div>
             </main>
