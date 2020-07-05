@@ -3,6 +3,7 @@ const {
     registerUser,
     authenticateUser,
     retrieveUser,
+    toggleWishlist,
 
     addBooks,
     retrieveBooks,
@@ -23,6 +24,7 @@ const router = new Router();
 router.post('/users', bodyParser(), registerUser);
 router.post('/users/auth', bodyParser(), authenticateUser);
 router.get('/users/:role', jwtVerifier, retrieveUser);
+router.patch('/wishlist/:ISBN', jwtVerifier, toggleWishlist);
 
 // Book-oriented endpoints
 router.post('/add-book', [bodyParser(), jwtVerifier], addBooks);
