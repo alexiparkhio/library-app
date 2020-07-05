@@ -10,4 +10,5 @@ module.exports = {
     updateBook: require('./update-book'),
     requestBook: require('./request-book'),
     removeBook: require('./remove-book'),
+    borrowBook: require('./borrow-book'),
 }

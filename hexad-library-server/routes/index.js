@@ -9,6 +9,7 @@ const {
     updateBook,
     requestBook,
     removeBook,
+    borrowBook
 } = require('./handlers');
 const { json: bodyParser } = require('body-parser');
 const { jwtVerifier } = require('../mid-wares');
@@ -28,5 +29,6 @@ router.get('/books', retrieveBooks);
 router.patch('/book/:ISBN', [bodyParser(), jwtVerifier], updateBook);
 router.post('/request', [bodyParser(), jwtVerifier], requestBook);
 router.delete('/book/:ISBN', jwtVerifier, removeBook);
+router.patch('/borrow/:ISBN', jwtVerifier, borrowBook);
 
 module.exports = router;
