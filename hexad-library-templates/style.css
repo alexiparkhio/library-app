@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   height: 75px;
-  background-color: darkblue;
+  background-color: #2a3f79;
 }
 .header__grid {
   box-shadow: 0px 10px 14px -1px rgba(0, 0, 0, 0.25);
@@ -20,6 +20,10 @@
   margin: auto 5px;
   align-items: center;
   grid-area: 1/1/1/1;
+}
+.header__welcome {
+  font-size: 18px;
+  text-align: right;
 }
 .header__user {
   grid-area: 1/3/1/4;
@@ -113,6 +117,7 @@
 .book {
   width: 90%;
   margin: 3.5% 2%;
+  color: #383838;
 }
 .book__item {
   box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.25);
@@ -123,10 +128,20 @@
 .book__title {
   text-align: center;
   width: 100%;
-  background-color: darkblue;
+  background-color: #2a3f79;
   border-radius: 1em 1em 0px 0px;
   color: white;
   padding: 7.5px 0px;
+}
+.book__status {
+  font-size: 18px;
+  padding: 7.5px;
+}
+.book__status.available {
+  color: green;
+}
+.book__status.unavailable {
+  color: red;
 }
 .book__description {
   font-size: 18px;
@@ -159,7 +174,7 @@
   align-items: center;
 }
 .book__button {
-  color: darkblue;
+  color: #2a3f79;
   margin: auto 5px;
 }
 .book__button-text {
