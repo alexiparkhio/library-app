@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "hexad-library-commons": "file:../hexad-library-commons",
     "hexad-library-data": "file:../hexad-library-data",
+    "moment": "^2.27.0",
     "node-fetch": "^2.6.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",

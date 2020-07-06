@@ -9,6 +9,7 @@ import {
   RequestBook,
   Requests,
   Wishlist,
+  BorrowedBooks,
 } from '../';
 import {
   MainBody,
@@ -187,14 +188,14 @@ export default withRouter(function ({ history }) {
         {books ? (<>
           {user ? <Navbar user={user} navigation={screenHandler} /> : null}
           <Route path="/home" render={() => (<>
-            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} onToggleWishlist={toggleWishlistHandler} onBorrowBook={borrowBookHandler} feedback={feedback}/>}
+            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} onToggleWishlist={toggleWishlistHandler} onBorrowBook={borrowBookHandler} feedback={feedback} />}
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
             {view === 'request-book' && <RequestBook onRequestBook={requestBookHandler} feedback={feedback} />}
             {view === 'requests' && <Requests user={user} />}
             {view === 'wishlist' && <Wishlist user={user} onToggleWishlist={toggleWishlistHandler} onBorrowBook={borrowBookHandler} feedback={feedback} />}
+            {view === 'borrowed' && <BorrowedBooks user={user} feedback={feedback} />}
           </>)} />
         </>) : null}
-
       </MainBody>
       <Footer />
     </div>
