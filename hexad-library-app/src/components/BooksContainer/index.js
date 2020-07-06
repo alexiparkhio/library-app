@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './styles.sass';
 import BookItem from '../BookItem';
 
-function BooksContainer({ user, books }) {
+function BooksContainer({ user, books, onRemoveBook }) {
     const [search, setSearch] = useState('');
 
     function handleSearch(event) {
@@ -20,7 +20,7 @@ function BooksContainer({ user, books }) {
 
                 <ul className="books__list">
                     {books.length > 0 ? books.map(book => (<>
-                        <BookItem key={book.id} details={book} user={user} input={search} />
+                        <BookItem key={book.id} details={book} user={user} input={search} onRemoveBook={onRemoveBook} />
                     </>)) : <p>No books to load...</p>}
                 </ul>
             </div>

@@ -17,7 +17,7 @@ function Navbar({ user, onAddBook }) {
 
                                 onAddBook();
                             }}><FontAwesomeIcon icon='book' />Add Book</li>
-                            <li className="nav__option"><FontAwesomeIcon icon='book-dead' />Remove Book</li>
+                            {/* <li className="nav__option"><FontAwesomeIcon icon='book-dead' />Remove Book</li> */}
                             <li className="nav__option"><FontAwesomeIcon icon='lightbulb' />New requests</li>
                         </>)}
 

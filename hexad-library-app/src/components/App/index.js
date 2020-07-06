@@ -20,6 +20,7 @@ import {
   retrieveUser,
 
   addBooks,
+  removeBook,
   retrieveBooks,
 } from '../../logic';
 import context from '../../logic/context';
@@ -110,12 +111,21 @@ export default withRouter(function ({ history }) {
 
   const addBookHandler = async (bookData) => {
     try {
-      debugger
       await addBooks(bookData);
 
       await __updateBooksList__();
       setView('books');
 
+    } catch ({ message }) {
+      __handleError__(message);
+    }
+  }
+
+  const removeBookHandler = async (ISBN) => {
+    try {
+      await removeBook(ISBN);
+
+      __updateBooksList__();
     } catch ({ message }) {
       __handleError__(message);
     }
@@ -131,7 +141,7 @@ export default withRouter(function ({ history }) {
         {books ? (<>
           {user ? <Navbar user={user} onAddBook={onAddBook} /> : null}
           <Route path="/home" render={() => (<>
-            {view === 'books' && <BooksContainer user={user} books={books} />}
+            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} />}
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
           </>)} />
         </>) : null}

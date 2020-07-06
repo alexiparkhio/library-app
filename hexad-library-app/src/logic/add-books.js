@@ -22,6 +22,6 @@ module.exports = function (bookData) {
     if (typeof bookData.yearOfPublication !== 'undefined') validate.type(bookData.yearOfPublication, 'yearOfPublication', Number);
 
     const { token } = this.storage;
-        debugger
+    
     return (async() => await fetch.post(`${this.API_URL}/add-book`, bookData, token))();
 }.bind(context)

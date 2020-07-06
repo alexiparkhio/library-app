@@ -5,7 +5,7 @@ module.exports = (req, res) => {
     const { payload: { sub: id }, params: { ISBN } } = req
 
     try {
-        remove(id, ISBN)
+        removeBook(id, ISBN)
             .then(() => res.status(206).end())
             .catch(error => errorHandler(error, res));
     } catch (error) {

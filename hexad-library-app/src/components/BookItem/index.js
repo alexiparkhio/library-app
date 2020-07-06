@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function BookItem({ input, user, details: { title, author, description, yearOfPublication, ISBN, stock } }) {
+function BookItem({ input, user, details: { title, author, description, yearOfPublication, ISBN, stock }, onRemoveBook }) {
     return (<>
         {title.toLowerCase().includes(input.toLowerCase()) && (<>
             <li className="book">
@@ -16,7 +16,11 @@ function BookItem({ input, user, details: { title, author, description, yearOfPu
                         {user && (<>
                             {user.role === 'ADMIN' && (<>
                                 <div className="book__button-container">
-                                    <FontAwesomeIcon icon="trash" className="book__button icon" />
+                                    <FontAwesomeIcon icon="trash" className="book__button icon" onClick={event => {
+                                        event.preventDefault();
+
+                                        onRemoveBook(ISBN);
+                                    }} />
                                     <p className="book__button-text">Remove this book</p>
                                 </div>
 
@@ -32,12 +36,12 @@ function BookItem({ input, user, details: { title, author, description, yearOfPu
                             </>)}
 
                             {user.role === 'MEMBER' && (<>
-                                <div className="book__button-container">
+                                <div className={`book__button-container ${stock === 0 ? 'disabled' : ''}`}>
                                     <FontAwesomeIcon icon="star" className="book__button icon" />
                                     <p className="book__button-text">Wishlist this book</p>
                                 </div>
 
-                                <div className="book__button-container">
+                                <div className={`book__button-container ${stock === 0 ? 'disabled' : ''}`}>
                                     <FontAwesomeIcon icon="atlas" className="book__button icon" />
                                     <p className="book__button-text">Borrow this book</p>
                                 </div>
