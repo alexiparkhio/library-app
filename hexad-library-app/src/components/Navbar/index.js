@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.sass';
 
-function Navbar({ user }) {
+function Navbar({ user, onAddBook }) {
     return (<>
         {user && (<>
             <nav className="nav">
@@ -12,7 +12,11 @@ function Navbar({ user }) {
                     </div>
                     <ul className="nav__list">
                         {user.role === 'ADMIN' && (<>
-                            <li className="nav__option"><FontAwesomeIcon icon='book' />Add Book</li>
+                            <li className="nav__option" onClick={event => {
+                                event.preventDefault();
+
+                                onAddBook();
+                            }}><FontAwesomeIcon icon='book' />Add Book</li>
                             <li className="nav__option"><FontAwesomeIcon icon='book-dead' />Remove Book</li>
                             <li className="nav__option"><FontAwesomeIcon icon='lightbulb' />New requests</li>
                         </>)}
