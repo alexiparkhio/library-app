@@ -5,7 +5,8 @@ const { mongoose, models: { Admin, Book, Member } } = require('hexad-library-dat
 const { floor, random } = Math;
 const bcrypt = require('bcryptjs');
 
-const admin = { email: `test@gmail.com`, password: undefined, role: 'ADMIN', created: new Date() };
+const admin = { email: `admin@gmail.com`, password: undefined, role: 'ADMIN', created: new Date() };
+const member = { email: `member@gmail.com`, password: undefined, role: 'MEMBER', created: new Date() };
 const BOOKS = [
     {
         title: "1984",
@@ -21,7 +22,7 @@ const BOOKS = [
         yearOfPublication: 1980,
         description: "The plot of A Confederacy of Dunces is a knotted, tangled, ridiculous thing. Following it is like unraveling a giant ball of yarn wrapped around a very fat man with a moustache and a funny hat who keeps falling over. So have patience… and watch out for toppling medievalists.",
         ISBN: "9780241951590",
-        stock: floor(random() * 99) + 1
+        stock: 0
     },
     {
         title: "Alice's Adventures in Wonderland",
@@ -57,8 +58,10 @@ mongoose.connect(MONGODB_URL, { useUnifiedTopology: true, useNewUrlParser: true 
             Member.deleteMany()
         ]);
 
-        admin.password = await bcrypt.hash('123123123', 10);
+        member.password = await bcrypt.hash('123', 10);
+        admin.password = await bcrypt.hash('123', 10);
 
+        const _member = await Member.create(member);
         const _admin = await Admin.create(admin);
 
         for (let i = 0; i < BOOKS.length; i++) {
