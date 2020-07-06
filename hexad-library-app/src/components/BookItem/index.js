@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import book from '../../../../hexad-library-server/node_modules/hexad-library-data/models/book';
 
-function BookItem({ input, user, details: { title, author, description, yearOfPublication, ISBN, stock }, onRemoveBook }) {
+function BookItem({ onUpdateStock, input, user, details: { title, author, description, yearOfPublication, ISBN, stock }, onRemoveBook }) {
+    const [restock, setRestock] = useState(false);
+    const [newStock, setNewStock] = useState();
+
+    function newStockHandler (event) {
+        const { target: {value} } = event;
+
+        setNewStock(parseInt(value));
+    }
+
     return (<>
         {title.toLowerCase().includes(input.toLowerCase()) && (<>
             <li className="book">
@@ -25,8 +35,22 @@ function BookItem({ input, user, details: { title, author, description, yearOfPu
                                 </div>
 
                                 <div className="book__button-container">
-                                    <FontAwesomeIcon icon="plus-square" className="book__button icon" />
+                                    <FontAwesomeIcon icon="plus-square" className="book__button icon" onClick={() => setRestock(!restock)} />
                                     <p className="book__button-text">Update stock</p>
+                                    {restock && (<>
+                                        <div className="book__restock-amount">
+                                            <p className="book__restock-text">Amount:</p>
+                                            <div className="book__restock-buttons">
+                                                <input type='number' min='0' name="stock" className="book__input" onChange={newStockHandler} />
+
+                                                <FontAwesomeIcon icon="plus-square" className="book__restock-text icon" onClick={event => {
+                                                    event.preventDefault();
+
+                                                    onUpdateStock({ stock: newStock, ISBN, title });
+                                                } } />
+                                            </div>
+                                        </div>
+                                    </>)}
                                 </div>
 
                                 <div className="book__button-container">

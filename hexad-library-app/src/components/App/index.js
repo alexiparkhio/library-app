@@ -141,7 +141,7 @@ export default withRouter(function ({ history }) {
         {books ? (<>
           {user ? <Navbar user={user} onAddBook={onAddBook} /> : null}
           <Route path="/home" render={() => (<>
-            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} />}
+            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} />}
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
           </>)} />
         </>) : null}
