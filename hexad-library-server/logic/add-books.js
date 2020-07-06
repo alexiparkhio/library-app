@@ -39,6 +39,7 @@ module.exports = (adminId, bookData, stock) => {
             throw new NotAllowedError(`book with title ${bookData.title} has a different ISBN`);
 
         } else if (!book) {
+
             bookData.stock = stock;
             bookData.added = new Date();
             book = await Book.create(bookData);
@@ -46,11 +47,19 @@ module.exports = (adminId, bookData, stock) => {
             await Admin.findByIdAndUpdate(adminId, { $addToSet: { addedBooks: book.id } });
 
             // Members who caused this book to be added get the bonus borrow limit, unless this bonus is already 4
-            const members = await Member.find({ requestedBooks: { ISBN: bookData.ISBN } });
+
+            const [admins, members] = await Promise.all([
+                Admin.find({ "requests.ISBN": bookData.ISBN }),
+                Member.find({ "requestedBooks.ISBN": bookData.ISBN })
+            ]);
+
+            for (let i = 0; i < admins.length; i++) {
+                await Admin.findByIdAndUpdate(admins[i].id, { $pull: { requests: { ISBN: bookData.ISBN } } });
+            };
 
             for (let i = 0; i < members.length; i++) {
-                const borrowLimit = members[0].borrowLimit === 4 ? 4 : members[0].borrowLimit++;
-                await Member.findByIdAndUpdate(members[0].id, { $set: { borrowLimit }, $pull: { requestedBooks: { ISBN: bookData.ISBN } } });
+                const borrowLimit = members[i].borrowLimit === 4 ? 4 : members[0].borrowLimit + 1;
+                await Member.findByIdAndUpdate(members[i].id, { $set: { borrowLimit }, $pull: { requestedBooks: { ISBN: bookData.ISBN } } });
             };
 
             return;

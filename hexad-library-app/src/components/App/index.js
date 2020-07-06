@@ -6,6 +6,7 @@ import {
   Navbar,
   BooksContainer,
   AddBook,
+  RequestBook,
 } from '../';
 import {
   MainBody,
@@ -23,12 +24,13 @@ import {
   addBooks,
   removeBook,
   retrieveBooks,
+  requestBook,
 } from '../../logic';
 import context from '../../logic/context';
 
 export default withRouter(function ({ history }) {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  const [feedback, setFeedback] = useState(null);
   const [books, setBooks] = useState();
   const [view, setView] = useState('books');
 
@@ -51,11 +53,11 @@ export default withRouter(function ({ history }) {
     }
   }, []);
 
-  const __handleError__ = message => {
-    setError(message);
+  const __handleFeedback__ = (message, level) => {
+    setFeedback({ message, level });
 
     setTimeout(() => {
-      setError(null);
+      setFeedback(null);
     }, 3000);
   }
 
@@ -64,7 +66,7 @@ export default withRouter(function ({ history }) {
     setBooks(books);
   }
 
-  const __updateUser__ = async() => {
+  const __updateUser__ = async () => {
     const user = await retrieveUser();
     setUser(user);
   }
@@ -82,12 +84,13 @@ export default withRouter(function ({ history }) {
       await authenticateUser(email, password, role);
       const user = await retrieveUser(role);
       setUser(user);
+      setView('books');
 
       await __updateBooksList__();
 
       history.push('/home');
     } catch ({ message }) {
-      __handleError__(message);
+      __handleFeedback__(message, 'error');
     }
   }
 
@@ -97,7 +100,7 @@ export default withRouter(function ({ history }) {
 
       history.push('/sign-in');
     } catch ({ message }) {
-      __handleError__(message);
+      __handleFeedback__(message, 'error');
     }
   }
 
@@ -105,8 +108,8 @@ export default withRouter(function ({ history }) {
     history.push(page);
   }
 
-  const onAddBook = () => {
-    setView('add-book')
+  const screenHandler = screen => {
+    setView(screen)
   }
 
   const onGoHomeHandler = () => {
@@ -122,7 +125,7 @@ export default withRouter(function ({ history }) {
       setView('books');
 
     } catch ({ message }) {
-      __handleError__(message);
+      __handleFeedback__(message, 'error');
     }
   }
 
@@ -132,7 +135,7 @@ export default withRouter(function ({ history }) {
 
       __updateBooksList__();
     } catch ({ message }) {
-      __handleError__(message);
+      __handleFeedback__(message, 'error');
     }
   }
 
@@ -142,7 +145,17 @@ export default withRouter(function ({ history }) {
 
       await __updateUser__();
     } catch ({ message }) {
-      __handleError__(message);
+      __handleFeedback__(message, 'error');
+    }
+  }
+
+  const requestBookHandler = async (ISBN) => {
+    try {
+      await requestBook(ISBN);
+      __handleFeedback__('Request successfully received!', 'success');
+
+    } catch ({ message }) {
+      __handleFeedback__('This book has already been requested by you!', 'error');
     }
   }
 
@@ -151,13 +164,14 @@ export default withRouter(function ({ history }) {
       <Header user={user} navigation={pageHandler} onLogout={logoutHandler} onGoHome={onGoHomeHandler} />
       <MainBody>
         <Route exact path="/" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <Redirect to="/sign-in" />} />
-        <Route path="/sign-in" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={error} />} />
-        <Route path="/sign-up" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={error} />} />
+        <Route path="/sign-in" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={feedback} />} />
+        <Route path="/sign-up" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={feedback} />} />
         {books ? (<>
-          {user ? <Navbar user={user} onAddBook={onAddBook} /> : null}
+          {user ? <Navbar user={user} navigation={screenHandler} /> : null}
           <Route path="/home" render={() => (<>
             {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} onToggleWishlist={toggleWishlistHandler} />}
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
+            {view === 'request-book' && <RequestBook onRequestBook={requestBookHandler} feedback={feedback} />}
           </>)} />
         </>) : null}
 

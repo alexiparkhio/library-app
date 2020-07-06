@@ -2,7 +2,7 @@ const { requestBook } = require('../../logic');
 const { errorHandler } = require('../../helpers');
 
 module.exports = (req, res) => {
-    const { body: { ISBN }, payload: { sub: id } } = req
+    const { body: { body: ISBN }, payload: { sub: id } } = req
 
     try {
         requestBook(id, ISBN)

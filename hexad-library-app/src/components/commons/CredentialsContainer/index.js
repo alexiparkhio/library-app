@@ -34,7 +34,7 @@ function CredentialsContainer({ title, button, navigation, onLogin, onRegister, 
                 </div>
             </div>
 
-            {error && <Feedback message={error} />}
+            {error && <Feedback feedback={error} />}
 
             <button type="submit" className="credentials__submit-button">{button}</button>
             {title === "Sign in" && <a href="" onClick={event => {
