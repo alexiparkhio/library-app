@@ -1,0 +1,95 @@
+.book
+    width: 90%
+    margin: 3.5% 2%
+    color: #383838
+
+    &__item
+        box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.25)
+        border-radius: 1em
+        min-height: 150px
+        height: auto
+
+    &__title
+        text-align: center
+        width: 100%
+        background-color: #2a3f79
+        border-radius: 1em 1em 0px 0px
+        color: white
+        padding: 7.5px 0px
+
+    &__status
+        font-size: 18px
+        padding: 7.5px
+        &.available
+            color: green
+        &.unavailable
+            color: red
+
+    &__description
+        font-size: 18px
+        padding: 7.5px
+
+    &__isbn
+        font-size: 18px
+        font-style: italic
+        padding: 7.5px
+
+    &__separator
+        width: 90%
+        height: 2px
+        background-color: darkgrey
+        margin: 2% auto
+
+    &__buttons-container
+        width: 100%
+        padding: 7.5px
+        font-size: 36px
+        display: flex
+        flex-direction: row
+        justify-content: space-evenly
+        align-items: center
+        
+    &__button-container
+        display: flex
+        flex-direction: row
+        justify-content: space-evenly
+        align-items: center
+
+        &.disabled
+            pointer-events: none
+            color: lightgrey
+    
+    &__button
+        color: #2a3f79
+        margin: auto 5px
+        
+        &.wishlisted
+            color: #ffe710
+
+    &__button-text
+        font-size: 18px
+    
+    &__restock-amount
+        display: flex
+        flex-direction: column
+        align-items: center
+        padding: 5px
+        border-radius: 1em
+        box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.25)
+        max-width: 80px
+        margin: auto 5px
+
+    &__restock-text
+        font-size: 16px
+        text-align: center
+        color: #2a3f79
+
+    &__restock-buttons
+        display: flex
+        flex-direction: row
+        justify-content: space-around
+
+    &__input
+        font-size: 16px
+        width: 50%
+        background-color: lightgrey

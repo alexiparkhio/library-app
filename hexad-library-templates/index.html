@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexad Library</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://hexad.de/wp-content/uploads/2019/11/favicon-152.png" type="image/x-icon">
+</head>
+<body>
+    <div class="main">
+        <header class="header">
+            <div class="header__grid">
+                <p class="header__title"><i class="fas icon fa-book"></i>Hexad Library</p>
+                <!--SWITCH TO A LOGIN/REGISTER BUTTONS IF GUEST HAS ENTERED-->
+                <!-- <p class="header__welcome">Welcome, Alex!</p> -->
+                <p class="header__welcome">Sign-in/up in order to use all app's features</p>
+                <!--LOGGED USER-->
+                <!-- <i class="header__member icon fas fa-user"></i>
+                <i class="header__logout icon fas fa-sign-out-alt"></i> -->
+                <!-- <i class="header__admin icon fas fa-user-shield"></i> -->
+                <!--GUEST USER-->
+                <i class="header__sign-up icon fas fa-user-plus"></i>
+                <i class="header__sign-in icon fas fa-sign-in-alt"></i>
+            </div>
+        </header>
+
+        <!--LANDING PAGE-->
+        <div class="main-body">
+            <!--SIGN IN/UP WINDOWS-->
+            <!-- <form class="sign-in">
+                <p class="sign-in__header">Sign in</p>
+                <div class="sign-in__separator"></div>
+                <input type="text" name="email" class="sign-in__input" placeholder="example@mail.com" required>
+                <input type="password" name="password" class="sign-in__input" placeholder="Insert your password" required>
+                <div class="sign-in__profile-container">
+                    <div class="sign-in__profile-item">
+                        <i class="sign-in__icon icon fas fa-user"></i>
+                        <p class="sign-in__profile-text">Member</p>
+                    </div>
+                    
+                    <div class="sign-in__profile-item">
+                        <i class="sign-in__icon icon fas fa-user-shield"></i>
+                        <p class="sign-in__profile-text">Admin</p>
+                    </div>
+                </div>
+                <button type="submit" class="sign-in__submit-button">Log in</button>
+            </form> -->
+            
+            <!-- <form class="sign-up">
+                <p class="sign-up__header">Sign up</p>
+                <div class="sign-up__separator"></div>
+                <input type="text" name="email" class="sign-up__input" placeholder="example@mail.com" required>
+                <input type="password" name="password" class="sign-up__input" placeholder="Insert your password" required>
+                <div class="sign-up__profile-container">
+                    <div class="sign-up__profile-item">
+                        <i class="sign-up__icon icon fas fa-user"></i>
+                        <p class="sign-up__profile-text">Member</p>
+                    </div>
+                    
+                    <div class="sign-up__profile-item">
+                        <i class="sign-up__icon icon fas fa-user-shield"></i>
+                        <p class="sign-up__profile-text">Admin</p>
+                    </div>
+                </div>
+                <button type="submit" class="sign-in__submit-button">Register</button>
+            </form> -->
+            
+            <!--ADD NEW BOOK WINDOW-->
+                <form class="add-book">
+                    <i class="add-book__header fas icon fa-book"></i>
+                    <p class="add-book__header">Add a new book to the library</p>
+                    <div class="add-book__separator"></div>
+                    <input type="text" name="title" class="add-book__input" placeholder="Book Title" required>
+                    <input type="text" name="ISBN" class="add-book__input" placeholder="ISBN" required>
+                    <input type="text" name="author" class="add-book__input" placeholder="Author">
+                    <input type="number" name="yearOfPublication" class="add-book__input" placeholder="Year of publication">
+                    <textarea name="password" class="add-book__input" placeholder="Book description (optional)" rows="4"></textarea>
+                    <input type="number" name="stock" class="add-book__input" placeholder="Amount of stock" required>
+                    
+                    <button type="submit" class="add-book__submit-button">Add book to the library</button>
+                </form>
+
+            <!--COMMENT THE NAVBAR IF A GUEST IS USING THE SITE-->
+            <!--NAVBAR FOR ADMIN USERS-->
+            <!-- <nav class="nav">
+                <div class="nav__flex">
+                    <div class="nav__header">
+                        <p>Options</p>
+                    </div>
+                    <ul class="nav__list">
+                        <li class="nav__option"><i class="fas fa-book"></i>Add Book</li>
+                        <li class="nav__option"><i class="fas fa-book-dead"></i>Remove Book</li>
+                        <li class="nav__option"><i class="far fa-lightbulb"></i>New requests</li>
+                    </ul>
+                </div>
+            </nav> -->
+            
+            <!--NAVBAR FOR MEMBER USERS-->
+            <!-- <nav class="nav">
+                <div class="nav__flex">
+                    <div class="nav__header">
+                        <p>Options</p>
+                    </div>
+                    <ul class="nav__list">
+                        <li class="nav__option"><i class="fas fa-book"></i>List of borrowed books</li>
+                        <li class="nav__option"><i class="fas fa-star"></i>List of wishlisted books</li>
+                        <li class="nav__option"><i class="far fa-lightbulb"></i>Request a new book</li>
+                    </ul>
+                </div>
+            </nav> -->
+            
+            <!-- <main class="books">
+                <div class="books__container">
+                    <p class="books__header">Available Books</p>
+                    <input type="text" name="query" class="books__input" placeholder="Type here to search for a book">
+
+                    DISABLE BUTTONS IF THE USER IS NOT LOGGED IN
+                    <ul class="books__list">
+                        BOOK ITEMS FOR ADMIN USERS
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status available">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-trash"></i>
+                                        <p class="book__button-text">Remove this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-plus-square"></i>
+                                        <p class="book__button-text">Update stock</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status unavailable">Status: unavailable</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-trash"></i>
+                                        <p class="book__button-text">Remove this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-plus-square"></i>
+                                        <p class="book__button-text">Update stock</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-trash"></i>
+                                        <p class="book__button-text">Remove this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-plus-square"></i>
+                                        <p class="book__button-text">Update stock</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+
+                        BOOK ITEMS FOR MEMBER USERS
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-star"></i>
+                                        <p class="book__button-text">Wishlist this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fab fa-get-pocket"></i>
+                                        <p class="book__button-text">Borrow this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container disabled">
+                                        <i class="book__button icon fas fa-star"></i>
+                                        <p class="book__button-text">Wishlist this book</p>
+                                    </div>
+
+                                    <div class="book__button-container disabled">
+                                        <i class="book__button icon fab fa-get-pocket"></i>
+                                        <p class="book__button-text">Borrow this book</p>
+                                    </div>
+
+                                    <div class="book__button-container disabled">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li class="book">
+                            <section class="book__item">
+                                <p class="book__title">La conjura de los necios (Someone, 1984)</p>
+                                <p class="book__status">Status: available</p>
+                                <p class="book__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolorem in ducimus? Corporis possimus rem, aliquid cum recusandae ab, nisi voluptatibus dolore quae sunt molestiae expedita labore quo, error reprehenderit!<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi dignissimos soluta repellendus ipsum velit doloremque nesciunt natus quia, cum iure eius consequatur hic? Illum fugit saepe repellendus neque asperiores natus!<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, maiores aut accusamus temporibus ad molestiae modi sequi architecto atque aliquam explicabo quae mollitia, natus sit in magni! Minima, reiciendis hic?</p>
+                                <p class="book__isbn">ISBN: ISBN934875348979</p>
+                                <div class="book__separator"></div>
+                                <div class="book__buttons-container">
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fas fa-star"></i>
+                                        <p class="book__button-text">Wishlist this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button icon fab fa-get-pocket"></i>
+                                        <p class="book__button-text">Borrow this book</p>
+                                    </div>
+
+                                    <div class="book__button-container">
+                                        <i class="book__button fas fa-layer-group"></i>
+                                        <p class="book__button-text">Stock: 5</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </main> -->
+        </div>
+
+        <footer class="footer">
+            <p class="footer__text">© All rights reserved to Àlex Park Viñas</p>
+        </footer>
+    </div>
+</body>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</html>
