@@ -40,8 +40,11 @@
     ]
   },
   "devDependencies": {
+    "atob": "^2.1.2",
+    "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
     "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mocha": "^8.0.1",
     "nyc": "^15.1.0"
   }
