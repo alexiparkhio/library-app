@@ -1126,3 +1126,4 @@
 127.0.0.1 - - [06/Jul/2020:22:26:02 +0000] "PATCH /api/borrow/9788499890944 HTTP/1.1" 206 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
 127.0.0.1 - - [06/Jul/2020:22:26:02 +0000] "GET /api/users/MEMBER HTTP/1.1" 200 962 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
 127.0.0.1 - - [06/Jul/2020:22:26:02 +0000] "GET /api/books HTTP/1.1" 200 3546 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+127.0.0.1 - - [06/Jul/2020:22:29:15 +0000] "GET /api/books HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
