@@ -2,7 +2,7 @@ import React from 'react';
 import './style.sass';
 import moment from 'moment';
 
-function BorrowedItem({ details: { bookId: { ISBN, title }, daysCount, expiracyDate }, user }) {
+function BorrowedItem({ details: { bookId: { ISBN, title }, daysCount, expiracyDate }, onReturnBook }) {
     return (<>
         <li className="borrowed-item">
             <section className="borrowed-item__item">
@@ -12,7 +12,11 @@ function BorrowedItem({ details: { bookId: { ISBN, title }, daysCount, expiracyD
 
                 <div className="borrowed-item__separator"></div>
 
-                <p className="borrowed-item__return-button icon">Return book</p>
+                <p className="borrowed-item__return-button icon" onClick={event => {
+                    event.preventDefault();
+
+                    onReturnBook(ISBN);
+                }}>Return book</p>
             </section>
         </li>
     </>)

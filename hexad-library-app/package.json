@@ -23,6 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "npx mocha src/logic",
+    "test:coverage": "npx nyc --reporter=html --reporter=text mocha src/logic/**/*.spec.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

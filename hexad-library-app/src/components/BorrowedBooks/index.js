@@ -3,7 +3,7 @@ import './styles.sass';
 import BorrowedItem from '../BorrowedItem';
 import { Feedback } from '../commons';
 
-function BorrowedBooks({ user, feedback }) {
+function BorrowedBooks({ user, feedback, onReturnBook }) {
     return (<>
         <main className="borrowed-books">
             <div className="borrowed-books__container">
@@ -14,7 +14,7 @@ function BorrowedBooks({ user, feedback }) {
 
                 <ul className="borrowed-books__list">
                     {user.borrowedBooks.length > 0 ? user.borrowedBooks.map(book => (<>
-                        <BorrowedItem details={book} user={user} />
+                        <BorrowedItem details={book} user={user} onReturnBook={onReturnBook} />
                     </>)) : <p>No books borrowed. You can still borrow up to {user.borrowLimit - user.borrowedBooks.length} books</p>}
                 </ul>
             </div>
