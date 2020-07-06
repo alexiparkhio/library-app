@@ -8,6 +8,7 @@ import {
   AddBook,
   RequestBook,
   Requests,
+  Wishlist,
 } from '../';
 import {
   MainBody,
@@ -177,6 +178,7 @@ export default withRouter(function ({ history }) {
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
             {view === 'request-book' && <RequestBook onRequestBook={requestBookHandler} feedback={feedback} />}
             {view === 'requests' && <Requests user={user} />}
+            {view === 'wishlist' && <Wishlist user={user} onToggleWishlist={toggleWishlistHandler} />}
           </>)} />
         </>) : null}
 

@@ -61,12 +61,12 @@ function BookItem({ onToggleWishlist, onUpdateStock, user, details: { id, title,
 
                         {user.role === 'MEMBER' && (<>
                             <div className={`book__button-container ${stock === 0 ? 'disabled' : ''}`}>
-                                <FontAwesomeIcon icon="star" className={`book__button icon ${typeof user.wishlistedBooks.find(book => book.toString() === id) !== 'undefined' ? 'wishlisted' : ''}`} onClick={event => {
+                                <FontAwesomeIcon icon="star" className={`book__button icon ${typeof user.wishlistedBooks.find(book => book.ISBN === ISBN) !== 'undefined' ? 'wishlisted' : ''}`} onClick={event => {
                                     event.preventDefault();
 
                                     onToggleWishlist(ISBN);
                                 }} />
-                                <p className="book__button-text">{typeof user.wishlistedBooks.find(book => book.toString() === id) !== 'undefined' ? 'Unwishlist this book' : 'Wishlist this book'}</p>
+                                <p className="book__button-text">{typeof user.wishlistedBooks.find(book => book.ISBN === ISBN) !== 'undefined' ? 'Unwishlist this book' : 'Wishlist this book'}</p>
                             </div>
 
                             <div className={`book__button-container ${stock === 0 ? 'disabled' : ''}`}>

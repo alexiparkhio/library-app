@@ -26,7 +26,11 @@ function Navbar({ user, navigation }) {
 
                         {user.role === 'MEMBER' && (<>
                             <li className="nav__option"><FontAwesomeIcon icon='book' />List of borrowed books</li>
-                            <li className="nav__option"><FontAwesomeIcon icon='star' />List of wishlisted books</li>
+                            <li className="nav__option" onClick={event => {
+                                event.preventDefault();
+
+                                navigation('wishlist');
+                            }}><FontAwesomeIcon icon='star' />List of wishlisted books</li>
                             <li className="nav__option" onClick={event => {
                                 event.preventDefault();
 
