@@ -13,5 +13,5 @@ module.exports = {
     retrieveBooks: require('./retrieve-books'),
     requestBook: require('./request-book'),
     borrowBook: require('./borrow-book'),
-
+    returnBorrowedBook: require('./return-borrowed-book'),
 }

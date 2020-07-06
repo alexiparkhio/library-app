@@ -29,6 +29,7 @@ import {
   retrieveBooks,
   requestBook,
   borrowBook,
+  returnBorrowedBook,
 } from '../../logic';
 import context from '../../logic/context';
 
@@ -171,10 +172,20 @@ export default withRouter(function ({ history }) {
       await borrowBook(ISBN);
       await __updateUser__();
       await __updateBooksList__();
-
+      
       __handleFeedback__('Book has been borrowed! Check your list to see the days until overdue', 'success')
     } catch ({ message }) {
       __handleFeedback__('Oops! Something went wrong', 'error');
+    }
+  }
+  
+  const returnBorrowedBookHandler = async (ISBN) => {
+    try {
+      await returnBorrowedBook(ISBN);
+      await __updateUser__();
+      await __updateBooksList__();
+    } catch ({ message }) {
+      __handleFeedback__(message, 'error');
     }
   }
 
@@ -193,7 +204,7 @@ export default withRouter(function ({ history }) {
             {view === 'request-book' && <RequestBook onRequestBook={requestBookHandler} feedback={feedback} />}
             {view === 'requests' && <Requests user={user} />}
             {view === 'wishlist' && <Wishlist user={user} onToggleWishlist={toggleWishlistHandler} onBorrowBook={borrowBookHandler} feedback={feedback} />}
-            {view === 'borrowed' && <BorrowedBooks user={user} feedback={feedback} />}
+            {view === 'borrowed' && <BorrowedBooks user={user} feedback={feedback} onReturnBook={returnBorrowedBookHandler} />}
           </>)} />
         </>) : null}
       </MainBody>
