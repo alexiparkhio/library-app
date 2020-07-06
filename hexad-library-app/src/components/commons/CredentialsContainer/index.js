@@ -47,7 +47,7 @@ function CredentialsContainer({ title, button, navigation, onLogin, onRegister, 
                 }}>Already a member? Sign in</a>}
             <a href="" onClick={event => {
                 event.preventDefault();
-                navigation('/landing')}}>Enter as guest</a>
+                navigation('/home')}}>Enter as guest</a>
         </form>
     </>)
 }

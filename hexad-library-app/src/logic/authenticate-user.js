@@ -40,6 +40,7 @@ module.exports = function (email, password, role) {
             const { token } = await response.json();
 
             this.storage.token = token;
+            this.storage.role = role;
 
             return
         }

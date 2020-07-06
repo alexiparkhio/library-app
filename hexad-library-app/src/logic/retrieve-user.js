@@ -5,19 +5,15 @@ const { utils: { validate } } = require('hexad-library-commons');
 /**
  * Retrieves a (sanitized) member or an admin, depending on the role provided.
  * 
- * @param {string} role user's role (ADMIN or MEMBER)
- * 
  * @returns {Promise<Object>} returns a Promise with the admin/member
  * 
  * @throws {NotFoundError} if the admin/member does not exist
  * 
 */
-module.exports = function (role) {
-    validate.string(role, 'role')
-
+module.exports = function () {
     return (async () => {
-        const token = this.storage.token;
-        debugger
+        const { token, role } = this.storage;
+        
         return await fetch.get(`${this.API_URL}/users/${role}`, token)
     })()
 }.bind(context)

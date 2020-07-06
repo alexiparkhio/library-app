@@ -53,8 +53,9 @@ describe('retrieveUser', () => {
         it('should succeed on retrieving an admin whose token was previously set', async () => {
             let token = jwt.sign({ sub: adminId }, SECRET, { expiresIn: EXPIRACY });
             context.storage.token = token;
+            context.storage.role = adminRole;
 
-            const admin = await retrieveUser(adminRole);
+            const admin = await retrieveUser();
 
             expect(admin).to.exist;
             expect(admin).to.be.instanceof(Object);
@@ -72,8 +73,9 @@ describe('retrieveUser', () => {
         it('should succeed on retrieving an admin whose token was previously set', async () => {
             let token = jwt.sign({ sub: memberId }, SECRET, { expiresIn: EXPIRACY });
             context.storage.token = token;
+            context.storage.role = memberRole;
 
-            const member = await retrieveUser(memberRole);
+            const member = await retrieveUser();
 
             expect(member).to.exist;
             expect(member).to.be.instanceof(Object);
@@ -90,12 +92,13 @@ describe('retrieveUser', () => {
         it('should fail to retrieve an admin if the admin does not exist', async () => {
             let token = jwt.sign({ sub: adminId }, SECRET, { expiresIn: EXPIRACY });
             context.storage.token = token;
+            context.storage.role = adminRole;
             
             await Admin.deleteMany();
             let _error;
 
             try {
-                await retrieveUser(adminRole);
+                await retrieveUser();
             } catch (error) {
                 _error = error;
             }
@@ -108,12 +111,13 @@ describe('retrieveUser', () => {
         it('should fail to retrieve a member if the member does not exist', async () => {
             let token = jwt.sign({ sub: memberId }, SECRET, { expiresIn: EXPIRACY });
             context.storage.token = token;
+            context.storage.role = memberRole;
 
             await Member.deleteMany();
             let _error;
 
             try {
-                await retrieveUser(memberRole);
+                await retrieveUser();
             } catch (error) {
                 _error = error;
             }
@@ -121,24 +125,6 @@ describe('retrieveUser', () => {
             expect(_error).to.exist;
             expect(_error).to.be.instanceof(NotFoundError);
             expect(_error.message).to.equal(`member with id ${memberId} does not exist`);
-        });
-    });
-
-    describe('synchronous paths', () => {
-        let role;
-
-        it('should fail on a non-string role', () => {
-            role = random();
-            expect(() => retrieveUser(role)).to.throw(TypeError, `role ${role} is not a string`);
-
-            role = undefined;
-            expect(() => retrieveUser(role)).to.throw(TypeError, `role ${role} is not a string`);
-
-            role = false;
-            expect(() => retrieveUser(role)).to.throw(TypeError, `role ${role} is not a string`);
-
-            role = [1, 2, 3];
-            expect(() => retrieveUser(role)).to.throw(TypeError, `role ${role} is not a string`);
         });
     });
 

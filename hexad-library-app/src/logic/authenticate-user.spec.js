@@ -61,7 +61,7 @@ describe('authenticateUser', () => {
             const admin = await Admin.findOne({ email: adminEmail });
             expect(admin.authenticated).to.be.instanceof(Date);
 
-            const { token } = context.storage;
+            const { token, role } = context.storage;
             expect(token).to.exist;
             expect(token).to.be.a("string");
             expect(token.split('.').length).to.equal(3);
@@ -69,6 +69,8 @@ describe('authenticateUser', () => {
             let [, payload] = token.split('.');
             payload = JSON.parse(atob(payload)).sub;
             expect(payload).to.equal(adminId);
+
+            expect(role).to.equal(adminRole);
         });
         
         it('should succeed on authenticate a member on correct credentials, and return its id', async () => {
@@ -79,7 +81,7 @@ describe('authenticateUser', () => {
             const member = await Member.findOne({ email: memberEmail });
             expect(member.authenticated).to.be.instanceof(Date);
             
-            const { token } = context.storage;
+            const { token, role } = context.storage;
             expect(token).to.exist;
             expect(token).to.be.a("string");
             expect(token.split('.').length).to.equal(3);
@@ -87,6 +89,8 @@ describe('authenticateUser', () => {
             let [, payload] = token.split('.');
             payload = JSON.parse(atob(payload)).sub;
             expect(payload).to.equal(memberId);
+
+            expect(role).to.equal(memberRole);
         });
         
         it('should fail to authenticate the admin if the credentials are wrong', async () => {

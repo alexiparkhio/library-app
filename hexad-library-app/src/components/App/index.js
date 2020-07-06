@@ -4,13 +4,27 @@ import '../commons/FontAwesomeIcons';
 import { MainBody, CredentialsContainer } from '../commons';
 import { Route, withRouter, Redirect } from 'react-router-dom';
 import {
-  registerUser,
-} from '../../logic';
+  isUserLoggedIn,
 
-export default withRouter(function({ history }) {
-  const [view, setView] = useState(null);
+  registerUser,
+  authenticateUser,
+  retrieveUser,
+} from '../../logic';
+import context from '../../logic/context';
+
+export default withRouter(function ({ history }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (isUserLoggedIn()) {
+      retrieveUser()
+        .then(user => {
+          setUser(user);
+          history.push('/home');
+        })
+    }
+  }, []);
 
   const __handleError__ = message => {
     setError(message);
@@ -20,13 +34,29 @@ export default withRouter(function({ history }) {
     }, 3000);
   }
 
-  const loginHandler = (email, password, role) => {
-    console.log(email, password, role);
+  const logoutHandler = () => {
+    delete context.storage.token; 
+    delete context.storage.role;
+    setUser(null);
+
+    history.push('/sign-in');
+  }
+
+  const loginHandler = async (email, password, role) => {
+    try {
+      await authenticateUser(email, password, role);
+      const user = await retrieveUser(role);
+      setUser(user);
+
+      history.push('/home');
+    } catch ({ message }) {
+      __handleError__(message);
+    }
   }
 
   const registerHandler = async (email, password, role) => {
     try {
-     await registerUser(email, password, role);
+      await registerUser(email, password, role);
 
       history.push('/sign-in');
     } catch ({ message }) {
@@ -40,11 +70,12 @@ export default withRouter(function({ history }) {
 
   return (<>
     <div className="App">
-      <Header user={user} navigation={pageHandler} />
+      <Header user={user} navigation={pageHandler} onLogout={logoutHandler} />
       <MainBody>
-        <Route exact path="/" render={() => !view ? <Redirect to="/sign-in" /> : <Redirect to="/sign-up" />} />
-        <Route path="/sign-in" render={() => <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={error}  />} />
-        <Route path="/sign-up" render={() => <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={error} />} />
+        <Route exact path="/" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <Redirect to="/sign-in" />} />
+        <Route path="/sign-in" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={error} />} />
+        <Route path="/sign-up" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={error} />} />
+        <Route path="/home" render={() => (<></>)} />
       </MainBody>
       <Footer />
     </div>
