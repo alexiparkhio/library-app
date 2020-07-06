@@ -7,6 +7,7 @@ import {
   BooksContainer,
   AddBook,
   RequestBook,
+  Requests,
 } from '../';
 import {
   MainBody,
@@ -74,6 +75,7 @@ export default withRouter(function ({ history }) {
   const logoutHandler = () => {
     delete context.storage.token;
     delete context.storage.role;
+    setView('books');
     setUser(null);
 
     history.push('/sign-in');
@@ -84,6 +86,7 @@ export default withRouter(function ({ history }) {
       await authenticateUser(email, password, role);
       const user = await retrieveUser(role);
       setUser(user);
+      console.log(user);
       setView('books');
 
       await __updateBooksList__();
@@ -122,6 +125,7 @@ export default withRouter(function ({ history }) {
       await addBooks(bookData);
 
       await __updateBooksList__();
+      await __updateUser__();
       setView('books');
 
     } catch ({ message }) {
@@ -172,6 +176,7 @@ export default withRouter(function ({ history }) {
             {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} onToggleWishlist={toggleWishlistHandler} />}
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
             {view === 'request-book' && <RequestBook onRequestBook={requestBookHandler} feedback={feedback} />}
+            {view === 'requests' && <Requests user={user} />}
           </>)} />
         </>) : null}
 

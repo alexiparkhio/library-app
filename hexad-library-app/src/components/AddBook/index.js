@@ -37,7 +37,7 @@ function AddBook({ onAddBook, error }) {
             <input type="text" name="ISBN" className="add-book__input" placeholder="ISBN" required />
             <input type="text" name="author" className="add-book__input" placeholder="Author" />
             <input type="number" name="yearOfPublication" className="add-book__input" placeholder="Year of publication" />
-            <textarea name="description" className="add-book__input" placeholder="Book description (optional)" rows="4"></textarea>
+            <textarea name="description" className="add-book__input" placeholder="Book description" rows="4" required></textarea>
             <input type="number" name="stock" className="add-book__input" placeholder="Amount of stock" required />
 
             {error && <Feedback feedback={error} />}

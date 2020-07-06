@@ -14,7 +14,7 @@ function BooksContainer({ user, books, onRemoveBook, onUpdateStock, onToggleWish
 
     return (<>
         <main className="books">
-            <div className="books__container">
+            <div className={`books__container ${user ? '' : 'extended'}`}>
                 <p className="books__header">Available Books</p>
                 <input type="text" name="query" className="books__input" placeholder="Type here a title to search for a book" onChange={handleSearch} />
 

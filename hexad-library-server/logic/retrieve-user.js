@@ -21,6 +21,7 @@ module.exports = (id, role) => {
             const admin = await Admin.findById(id)
                 .lean()
                 .populate('rentedBooks.user', 'email')
+                .populate('requests.requester', 'email')
                 .populate('rentedBooks.book', 'ISBN title description author stock yearOfPublication');
 
             if (!admin) throw new NotFoundError(`admin with id ${id} does not exist`);

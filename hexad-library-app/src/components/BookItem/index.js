@@ -71,7 +71,7 @@ function BookItem({ onToggleWishlist, onUpdateStock, user, details: { id, title,
 
                             <div className={`book__button-container ${stock === 0 ? 'disabled' : ''}`}>
                                 <FontAwesomeIcon icon="atlas" className="book__button icon" />
-                                <p className="book__button-text">Borrow this book</p>
+                                <p className="book__button-text">Borrow this book ({user.borrowLimit - user.borrowedBooks.length} remaining)</p>
                             </div>
 
                             <div className="book__button-container">
