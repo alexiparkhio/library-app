@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Header, Footer } from '../';
 import '../commons/FontAwesomeIcons';
-import { MainBody, CredentialsContainer } from '../commons';
+import { 
+  Header, 
+  Footer,
+  Navbar,
+} from '../';
+import { 
+  MainBody, 
+  CredentialsContainer,
+} from '../commons';
 import { Route, withRouter, Redirect } from 'react-router-dom';
 import {
   isUserLoggedIn,
@@ -72,6 +79,7 @@ export default withRouter(function ({ history }) {
     <div className="App">
       <Header user={user} navigation={pageHandler} onLogout={logoutHandler} />
       <MainBody>
+        {user && <Navbar user={user} />}
         <Route exact path="/" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <Redirect to="/sign-in" />} />
         <Route path="/sign-in" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={error} />} />
         <Route path="/sign-up" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={error} />} />
