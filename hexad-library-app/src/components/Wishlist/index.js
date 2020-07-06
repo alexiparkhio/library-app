@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.sass';
 import BookItem from '../BookItem';
-import {Feedback} from '../commons';
+import { Feedback } from '../commons';
 
 function Wishlist({ user, onToggleWishlist, onBorrowBook, feedback }) {
     return (<>
@@ -13,7 +13,7 @@ function Wishlist({ user, onToggleWishlist, onBorrowBook, feedback }) {
 
                 <ul className="wishlist__list">
                     {user.wishlistedBooks.length > 0 ? user.wishlistedBooks.map(book => (<>
-                       <BookItem key={book.id} details={book} user={user} onToggleWishlist={onToggleWishlist} onBorrowBook={onBorrowBook}  />
+                        <BookItem key={book.id} details={book} user={user} onToggleWishlist={onToggleWishlist} onBorrowBook={onBorrowBook} />
                     </>)) : <p>No books wishlisted</p>}
                 </ul>
             </div>
