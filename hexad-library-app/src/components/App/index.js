@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../commons/FontAwesomeIcons';
-import { 
-  Header, 
+import {
+  Header,
   Footer,
   Navbar,
+  BooksContainer,
 } from '../';
-import { 
-  MainBody, 
+import {
+  MainBody,
   CredentialsContainer,
 } from '../commons';
 import { Route, withRouter, Redirect } from 'react-router-dom';
@@ -42,7 +43,7 @@ export default withRouter(function ({ history }) {
   }
 
   const logoutHandler = () => {
-    delete context.storage.token; 
+    delete context.storage.token;
     delete context.storage.role;
     setUser(null);
 
@@ -79,11 +80,13 @@ export default withRouter(function ({ history }) {
     <div className="App">
       <Header user={user} navigation={pageHandler} onLogout={logoutHandler} />
       <MainBody>
-        {user && <Navbar user={user} />}
         <Route exact path="/" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <Redirect to="/sign-in" />} />
         <Route path="/sign-in" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={error} />} />
         <Route path="/sign-up" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={error} />} />
-        <Route path="/home" render={() => (<></>)} />
+        <Route path="/home" render={() => (<>
+          <Navbar user={user} />
+          <BooksContainer user={user} />
+        </>)} />
       </MainBody>
       <Footer />
     </div>
