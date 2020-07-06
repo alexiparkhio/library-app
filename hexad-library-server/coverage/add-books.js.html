@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.29% </span>
+                <span class="strong">92.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/35</span>
+                <span class='fraction'>35/38</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">90.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/30</span>
+                <span class='fraction'>29/32</span>
             </div>
         
             
@@ -116,7 +116,16 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -157,6 +166,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -164,7 +174,15 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -216,6 +234,7 @@ module.exports = (adminId, bookData, stock) =&gt; {
             throw new NotAllowedError(`book with title ${bookData.title} has a different ISBN`);
 &nbsp;
         } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!book) {
+&nbsp;
             bookData.stock = stock;
             bookData.added = new Date();
             book = await Book.create(bookData);
@@ -223,11 +242,19 @@ module.exports = (adminId, bookData, stock) =&gt; {
             await Admin.findByIdAndUpdate(adminId, { $addToSet: { addedBooks: book.id } });
 &nbsp;
             // Members who caused this book to be added get the bonus borrow limit, unless this bonus is already 4
-            const members = await Member.find({ requestedBooks: { ISBN: bookData.ISBN } });
+&nbsp;
+            const [admins, members] = await Promise.all([
+                Admin.find({ "requests.ISBN": bookData.ISBN }),
+                Member.find({ "requestedBooks.ISBN": bookData.ISBN })
+            ]);
+&nbsp;
+            for (let i = 0; i &lt; admins.length; i++) {
+<span class="cstat-no" title="statement not covered" >                await Admin.findByIdAndUpdate(admins[i].id, { $pull: { requests: { ISBN: bookData.ISBN } } });</span>
+            };
 &nbsp;
             for (let i = 0; i &lt; members.length; i++) {
-                const borrowLimit = <span class="cstat-no" title="statement not covered" >members[0].borrowLimit === 4 ? 4 : members[0].borrowLimit++;</span>
-<span class="cstat-no" title="statement not covered" >                await Member.findByIdAndUpdate(members[0].id, { $set: { borrowLimit }, $pull: { requestedBooks: { ISBN: bookData.ISBN } } });</span>
+                const borrowLimit = <span class="cstat-no" title="statement not covered" >members[i].borrowLimit === 4 ? 4 : members[0].borrowLimit + 1;</span>
+<span class="cstat-no" title="statement not covered" >                await Member.findByIdAndUpdate(members[i].id, { $set: { borrowLimit }, $pull: { requestedBooks: { ISBN: bookData.ISBN } } });</span>
             };
 &nbsp;
             return;
@@ -241,7 +268,7 @@ module.exports = (adminId, bookData, stock) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 06 2020 18:30:56 GMT+0200 (GMT+02:00)
+                at Tue Jul 07 2020 01:27:00 GMT+0200 (GMT+02:00)
             </div>
         </div>
         <script src="prettify.js"></script>
