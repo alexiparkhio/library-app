@@ -18,13 +18,13 @@ import {
   registerUser,
   authenticateUser,
   retrieveUser,
+  toggleWishlist,
 
   addBooks,
   removeBook,
   retrieveBooks,
 } from '../../logic';
 import context from '../../logic/context';
-import book from 'hexad-library-data/models/book';
 
 export default withRouter(function ({ history }) {
   const [user, setUser] = useState(null);
@@ -62,6 +62,11 @@ export default withRouter(function ({ history }) {
   const __updateBooksList__ = async () => {
     const books = await retrieveBooks();
     setBooks(books);
+  }
+
+  const __updateUser__ = async() => {
+    const user = await retrieveUser();
+    setUser(user);
   }
 
   const logoutHandler = () => {
@@ -131,6 +136,16 @@ export default withRouter(function ({ history }) {
     }
   }
 
+  const toggleWishlistHandler = async (ISBN) => {
+    try {
+      await toggleWishlist(ISBN);
+
+      await __updateUser__();
+    } catch ({ message }) {
+      __handleError__(message);
+    }
+  }
+
   return (<>
     <div className="App">
       <Header user={user} navigation={pageHandler} onLogout={logoutHandler} onGoHome={onGoHomeHandler} />
@@ -141,7 +156,7 @@ export default withRouter(function ({ history }) {
         {books ? (<>
           {user ? <Navbar user={user} onAddBook={onAddBook} /> : null}
           <Route path="/home" render={() => (<>
-            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} />}
+            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} onToggleWishlist={toggleWishlistHandler} />}
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
           </>)} />
         </>) : null}
