@@ -27,6 +27,7 @@ import {
   removeBook,
   retrieveBooks,
   requestBook,
+  borrowBook,
 } from '../../logic';
 import context from '../../logic/context';
 
@@ -164,6 +165,18 @@ export default withRouter(function ({ history }) {
     }
   }
 
+  const borrowBookHandler = async (ISBN) => {
+    try {
+      await borrowBook(ISBN);
+      await __updateUser__();
+      await __updateBooksList__();
+
+      __handleFeedback__('Book has been borrowed! Check your list to see the days until overdue', 'success')
+    } catch ({ message }) {
+      __handleFeedback__('Oops! Something went wrong', 'error');
+    }
+  }
+
   return (<>
     <div className="App">
       <Header user={user} navigation={pageHandler} onLogout={logoutHandler} onGoHome={onGoHomeHandler} />
@@ -174,11 +187,11 @@ export default withRouter(function ({ history }) {
         {books ? (<>
           {user ? <Navbar user={user} navigation={screenHandler} /> : null}
           <Route path="/home" render={() => (<>
-            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} onToggleWishlist={toggleWishlistHandler} />}
+            {view === 'books' && <BooksContainer user={user} books={books} onRemoveBook={removeBookHandler} onUpdateStock={addBookHandler} onToggleWishlist={toggleWishlistHandler} onBorrowBook={borrowBookHandler} feedback={feedback}/>}
             {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
             {view === 'request-book' && <RequestBook onRequestBook={requestBookHandler} feedback={feedback} />}
             {view === 'requests' && <Requests user={user} />}
-            {view === 'wishlist' && <Wishlist user={user} onToggleWishlist={toggleWishlistHandler} />}
+            {view === 'wishlist' && <Wishlist user={user} onToggleWishlist={toggleWishlistHandler} onBorrowBook={borrowBookHandler} feedback={feedback} />}
           </>)} />
         </>) : null}
 

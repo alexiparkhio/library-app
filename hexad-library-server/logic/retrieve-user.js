@@ -37,7 +37,7 @@ module.exports = (id, role) => {
                 .lean()
                 .populate('requestedBooks', 'ISBN')
                 .populate('wishlistedBooks', 'ISBN title description author stock yearOfPublication')
-                .populate('borrowedBooks.book', 'ISBN title description author stock yearOfPublication');
+                .populate('borrowedBooks.bookId', 'ISBN title description author stock yearOfPublication');
 
             if (!member) throw new NotFoundError(`member with id ${id} does not exist`);
 
