@@ -6,6 +6,7 @@ import BooksContainer from './BooksContainer';
 import BookItem from './BookItem';
 import AddBook from './AddBook';
 import RequestBook from './RequestBook';
+import Requests from './Requests';
 
 export {
     App,
@@ -16,4 +17,5 @@ export {
     BookItem,
     AddBook,
     RequestBook,
+    Requests,
 }

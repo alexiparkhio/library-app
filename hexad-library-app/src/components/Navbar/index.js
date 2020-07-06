@@ -17,7 +17,11 @@ function Navbar({ user, navigation }) {
 
                                 navigation('add-book');
                             }}><FontAwesomeIcon icon='book' />Add Book</li>
-                            <li className={`nav__option ${user.requests.length > 0 ? 'new' : ''}`}><FontAwesomeIcon icon='lightbulb' />New requests {user.requests.length > 0 ? (<p className="nav__notification">({user.requests.length} pending)</p>) : null}</li>
+                            <li className={`nav__option ${user.requests.length > 0 ? 'new' : ''}`} onClick={event => {
+                                event.preventDefault();
+
+                                navigation('requests');
+                            }}><FontAwesomeIcon icon='lightbulb' />New requests {user.requests.length > 0 ? (<p className="nav__notification">({user.requests.length} pending)</p>) : null}</li>
                         </>)}
 
                         {user.role === 'MEMBER' && (<>
