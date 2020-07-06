@@ -7,5 +7,6 @@ module.exports = {
     authenticateUser: require('./authenticate-user'),
     retrieveUser: require('./retrieve-user'),
     
+    addBooks: require('./add-books'),
     retrieveBooks: require('./retrieve-books'),
 }

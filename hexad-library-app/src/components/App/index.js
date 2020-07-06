@@ -5,6 +5,7 @@ import {
   Footer,
   Navbar,
   BooksContainer,
+  AddBook,
 } from '../';
 import {
   MainBody,
@@ -18,14 +19,17 @@ import {
   authenticateUser,
   retrieveUser,
 
+  addBooks,
   retrieveBooks,
 } from '../../logic';
 import context from '../../logic/context';
+import book from 'hexad-library-data/models/book';
 
 export default withRouter(function ({ history }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [books, setBooks] = useState();
+  const [view, setView] = useState('books');
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -40,6 +44,9 @@ export default withRouter(function ({ history }) {
 
           history.push('/home');
         })
+    } else {
+      retrieveBooks()
+        .then(books => setBooks(books))
     }
   }, []);
 
@@ -49,6 +56,11 @@ export default withRouter(function ({ history }) {
     setTimeout(() => {
       setError(null);
     }, 3000);
+  }
+
+  const __updateBooksList__ = async () => {
+    const books = await retrieveBooks();
+    setBooks(books);
   }
 
   const logoutHandler = () => {
@@ -65,8 +77,7 @@ export default withRouter(function ({ history }) {
       const user = await retrieveUser(role);
       setUser(user);
 
-      const books = await retrieveBooks();
-      setBooks(books);
+      await __updateBooksList__();
 
       history.push('/home');
     } catch ({ message }) {
@@ -88,17 +99,40 @@ export default withRouter(function ({ history }) {
     history.push(page);
   }
 
+  const onAddBook = () => {
+    setView('add-book')
+  }
+
+  const onGoHomeHandler = () => {
+    setView('books');
+    history.push('/home');
+  }
+
+  const addBookHandler = async (bookData) => {
+    try {
+      debugger
+      await addBooks(bookData);
+
+      await __updateBooksList__();
+      setView('books');
+
+    } catch ({ message }) {
+      __handleError__(message);
+    }
+  }
+
   return (<>
     <div className="App">
-      <Header user={user} navigation={pageHandler} onLogout={logoutHandler} />
+      <Header user={user} navigation={pageHandler} onLogout={logoutHandler} onGoHome={onGoHomeHandler} />
       <MainBody>
         <Route exact path="/" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <Redirect to="/sign-in" />} />
         <Route path="/sign-in" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={error} />} />
         <Route path="/sign-up" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={error} />} />
         {books ? (<>
-          {user ? <Navbar user={user} /> : null}
+          {user ? <Navbar user={user} onAddBook={onAddBook} /> : null}
           <Route path="/home" render={() => (<>
-            <BooksContainer user={user} books={books} />
+            {view === 'books' && <BooksContainer user={user} books={books} />}
+            {view === 'add-book' && <AddBook onAddBook={addBookHandler} />}
           </>)} />
         </>) : null}
 

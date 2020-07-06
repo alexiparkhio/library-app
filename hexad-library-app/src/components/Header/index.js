@@ -2,13 +2,13 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.sass';
 
-function Header({ user, navigation, onLogout }) {
+function Header({ user, navigation, onLogout, onGoHome }) {
     return (<>
         <header className="header">
             <div className="header__grid">
                 <p className="header__title"><FontAwesomeIcon icon="book" className="icon" onClick={event => {
                     event.preventDefault();
-                    navigation('/home');
+                    onGoHome()
                 }} />Hexad Library</p>
 
                 {user && (<>
