@@ -1,11 +1,12 @@
 import React from 'react';
 import './styles.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Feedback } from '../commons';
 
-function AddBook({ onAddBook }) {
+function AddBook({ onAddBook, error }) {
     function onSubmit(event) {
         event.preventDefault();
-        
+
         const {
             title,
             description,
@@ -38,6 +39,8 @@ function AddBook({ onAddBook }) {
             <input type="number" name="yearOfPublication" className="add-book__input" placeholder="Year of publication" />
             <textarea name="description" className="add-book__input" placeholder="Book description (optional)" rows="4"></textarea>
             <input type="number" name="stock" className="add-book__input" placeholder="Amount of stock" required />
+
+            {error && <Feedback feedback={error} />}
 
             <button type="submit" className="add-book__submit-button">Add book to the library</button>
         </form>

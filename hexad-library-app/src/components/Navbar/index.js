@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.sass';
 
-function Navbar({ user, onAddBook }) {
+function Navbar({ user, navigation }) {
     return (<>
         {user && (<>
             <nav className="nav">
@@ -15,16 +15,19 @@ function Navbar({ user, onAddBook }) {
                             <li className="nav__option" onClick={event => {
                                 event.preventDefault();
 
-                                onAddBook();
+                                navigation('add-book');
                             }}><FontAwesomeIcon icon='book' />Add Book</li>
-                            {/* <li className="nav__option"><FontAwesomeIcon icon='book-dead' />Remove Book</li> */}
-                            <li className="nav__option"><FontAwesomeIcon icon='lightbulb' />New requests</li>
+                            <li className={`nav__option ${user.requests.length > 0 ? 'new' : ''}`}><FontAwesomeIcon icon='lightbulb' />New requests {user.requests.length > 0 ? (<p className="nav__notification">({user.requests.length} pending)</p>) : null}</li>
                         </>)}
 
                         {user.role === 'MEMBER' && (<>
                             <li className="nav__option"><FontAwesomeIcon icon='book' />List of borrowed books</li>
                             <li className="nav__option"><FontAwesomeIcon icon='star' />List of wishlisted books</li>
-                            <li className="nav__option"><FontAwesomeIcon icon='lightbulb' />Request a new book</li>
+                            <li className="nav__option" onClick={event => {
+                                event.preventDefault();
+
+                                navigation('request-book');
+                            }}><FontAwesomeIcon icon='lightbulb' />Request a new book</li>
                         </>)}
                     </ul>
                 </div>

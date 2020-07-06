@@ -11,5 +11,6 @@ module.exports = {
     addBooks: require('./add-books'),
     removeBook: require('./remove-book'),
     retrieveBooks: require('./retrieve-books'),
+    requestBook: require('./request-book'),
 
 }
