@@ -9,7 +9,8 @@
     "test:coverage": "npx nyc --reporter=html --reporter=text mocha logic/**/*.spec.js",
     "start": "node index.js",
     "start:debug": "node debug index.js",
-    "watch": "npx nodemon index.js"
+    "watch": "npx nodemon index.js",
+    "add:books": "node helpers/add-books.demo.js"
   },
   "keywords": [],
   "author": "",
