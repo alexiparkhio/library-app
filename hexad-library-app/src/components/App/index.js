@@ -17,18 +17,27 @@ import {
   registerUser,
   authenticateUser,
   retrieveUser,
+
+  retrieveBooks,
 } from '../../logic';
 import context from '../../logic/context';
 
 export default withRouter(function ({ history }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [books, setBooks] = useState();
 
   useEffect(() => {
     if (isUserLoggedIn()) {
       retrieveUser()
         .then(user => {
           setUser(user);
+
+          return retrieveBooks();
+        })
+        .then(books => {
+          setBooks(books);
+
           history.push('/home');
         })
     }
@@ -55,6 +64,9 @@ export default withRouter(function ({ history }) {
       await authenticateUser(email, password, role);
       const user = await retrieveUser(role);
       setUser(user);
+
+      const books = await retrieveBooks();
+      setBooks(books);
 
       history.push('/home');
     } catch ({ message }) {
@@ -83,10 +95,13 @@ export default withRouter(function ({ history }) {
         <Route exact path="/" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <Redirect to="/sign-in" />} />
         <Route path="/sign-in" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign in" button="Log in" navigation={pageHandler} onLogin={loginHandler} error={error} />} />
         <Route path="/sign-up" render={() => isUserLoggedIn() ? <Redirect to="/home" /> : <CredentialsContainer title="Sign up" button="Register" navigation={pageHandler} onRegister={registerHandler} error={error} />} />
-        <Route path="/home" render={() => (<>
-          <Navbar user={user} />
-          <BooksContainer user={user} />
-        </>)} />
+        {books ? (<>
+          {user ? <Navbar user={user} /> : null}
+          <Route path="/home" render={() => (<>
+            <BooksContainer user={user} books={books} />
+          </>)} />
+        </>) : null}
+
       </MainBody>
       <Footer />
     </div>
