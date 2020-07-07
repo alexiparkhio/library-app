@@ -71,12 +71,12 @@ function BookItem({ onToggleWishlist, onUpdateStock, user, details: { title, aut
                                 <p className="book__button-text">{typeof user.wishlistedBooks.find(book => book.ISBN === ISBN) !== 'undefined' ? 'Unwishlist this book' : 'Wishlist this book'}</p>
                             </div>
 
-                            <div className={`book__button-container ${stock === 0 || typeof user.borrowedBooks.find(book => book.bookId.ISBN === ISBN) !== 'undefined' ? 'disabled' : ''}`} onClick={event => {
-                                event.preventDefault();
+                            <div className={`book__button-container ${stock === 0 || typeof user.borrowedBooks.find(book => book.bookId.ISBN === ISBN) !== 'undefined' ? 'disabled' : ''}`}>
+                                <FontAwesomeIcon icon="atlas" className="book__button icon" onClick={event => {
+                                    event.preventDefault();
 
-                                onBorrowBook(ISBN);
-                            }}>
-                                <FontAwesomeIcon icon="atlas" className="book__button icon" />
+                                    onBorrowBook(ISBN);
+                                }} />
                                 <p className="book__button-text">{typeof user.borrowedBooks.find(book => book.bookId.ISBN === ISBN) !== 'undefined' ? 'Book already borrowed' : 'Borrow this book'} ({user.borrowLimit - user.borrowedBooks.length} remaining)</p>
                             </div>
 
