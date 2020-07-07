@@ -88,9 +88,8 @@ export default withRouter(function ({ history }) {
   const loginHandler = async (email, password, role) => {
     try {
       await authenticateUser(email, password, role);
-      const user = await retrieveUser(role);
+      const user = await retrieveUser();
       setUser(user);
-      console.log(user);
       setView('books');
 
       await __updateBooksList__();
