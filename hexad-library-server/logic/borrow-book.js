@@ -41,7 +41,7 @@ module.exports = (memberId, ISBN) => {
         if (book.stock === 0) throw new NotAllowedError(`book with ISBN ${ISBN} is out of stock`);
 
         // Algorhythm to calculate the number of days for the book to be borrowed
-        const daysCount = max(0.7 + 3 * member.borrowedBooks.length - member.overdueDays);
+        const daysCount = max(0.7 + 3 * (++member.borrowedBooks.length) - member.overdueDays);
         const expiracyDate = new Date((new Date()).setDate((new Date()).getDate() + daysCount));
         const status = book.stock === 1 ? 'unavailable' : 'available';
 
