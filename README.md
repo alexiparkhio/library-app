@@ -1,26 +1,30 @@
-# Hexad Library App
+# Park's Library App
 
 ## Description
 
-This is fullstack App I built in 2.5 days for a Hexad.de test. I would like to thank to the company beforehand for the interest they deposited in my skills.
+This is fullstack App I built in 2.5 days for a company's test. I would like to thank to the company beforehand for the interest they deposited in my skills.
 
 The app features a library service with an Admin and a Member profiles. 
 
 Admins can:
 
-- Add new books to the library, and remove them
+- Add new books to the library, or remove them
 - Update book's stock
+- Get notifications of new book requests to be added
 - Accept new requests of adding new books
 
 Members can:
 
 - Add new requests for new books to be added to the library
+- If those requests were added to the library, get additional borrow slots
 - Wishlist books
 - Borrow books and then return them
+- Check the list of borrowed and wishlisted books
 
 And everyone, even guests, can:
 
 - Check books' info that are already in the library (title, description, stock...)
+- Sort them by their title on a text input
 
 ## Installation
 
@@ -35,7 +39,7 @@ Please notice that the API needs `MongoDB` server to be listening before running
 ## Project Initialization
 
 ### Server-side
-For the server, located at `hexad-library-server`, simply run on the root directory:
+For the server, located at `library-server`, simply run on the root directory:
 
 ```sh
 $ npm run start
@@ -50,7 +54,7 @@ $ npm run add:books
 ```
 
 ### Client-side
-For the client, located at `hexad-library-app`, simply run on the root directory:
+For the client, located at `library-app`, simply run on the root directory:
 
 ```sh
 $ npm run start
