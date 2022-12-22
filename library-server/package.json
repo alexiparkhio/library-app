@@ -24,7 +24,7 @@
     "express": "^4.17.1",
     "library-commons": "file:../library-commons",
     "library-data": "file:../library-data",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "winston": "^3.3.3"
   },
